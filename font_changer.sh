@@ -4,6 +4,8 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
+MODUTILVCODE=1
+branch=master
 
 get_file_value() {
   if [ -f "$1" ]; then
@@ -380,13 +382,20 @@ mod_head() {
   echo -e ""
 }
 
-#=========================== Main
-# > You can start your MOD here.
-# > You can add functions, variables & etc.
-# > Rather than editing the default vars above.
-
-
-
+if test_connection; then
+  online=true
+  echo -e "\nFetching available binaries"
+  rm -f $MODDIR/.binaries
+  wget -qO $MODDIR/.binaries https://raw.githubusercontent.com/Zackptg5/Cross-Compiled-Binaries-Android/$branch/includes.txt 2>/dev/null & e_spinner
+  echo " - Done"
+  check_updates & e_spinner
+  [ -f $MODDIR/tmp ] && { echo -e " - Applying mod updates and restarting"; ccbins && quit; } || echo " - Ccbins is up to date"
+  check_bin_updates & e_spinner
+  [ -s $MODDIR/tmp ] && { echo -e " - The following binaries need updated:\n"; cat $MODDIR/tmp; } || echo " - Binaries are up to date"
+else
+  online=false
+  echo -e "No internet connection!\nOnline functionality disabled"
+fi
 #######################################################################################################
 #                                        MENU                                                         #
 #######################################################################################################

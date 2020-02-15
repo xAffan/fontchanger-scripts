@@ -2,6 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
+scriptver=1
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -50,6 +51,13 @@ if [ "$_bbname" == "" ]; then
   BBox=false
 fi
 
+check_updates() {
+  echo -e "\nChecking for mod updates"
+  for i in font_changer.sh,MODUTILVCODE Fontchanger-Functions,scriptver; do
+    local file="$(echo $i | cut -d , -f1)" value="$(echo $i | cut -d , -f2)"
+    [ `wget -qO - https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ] && { echo -n 1 > $MODPATH/tmp; wget -qO $MODPATH/$file https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null; }
+  done
+}
 
 invalid() {
   echo -e "${R}Invaild Option...${N}"
