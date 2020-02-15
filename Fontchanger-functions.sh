@@ -52,8 +52,9 @@ if [ "$_bbname" == "" ]; then
 fi
 
 check_updates() {
-  echo -e "\nChecking for mod updates"
-  for i in font_changer.sh,MODUTILVCODE Fontchanger-Functions,scriptver; do
+  rm -rf $MODPATH/tmp 2>&1
+  echo -e "${B}Checking for mod updates${N}"
+  for i in system/bin/font_changer.sh,MODUTILVCODE Fontchanger-Functions,scriptver; do
     local file="$(echo $i | cut -d , -f1)" value="$(echo $i | cut -d , -f2)"
     [ `wget -qO - https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ] && { echo -n 1 > $MODPATH/tmp; wget -qO $MODPATH/$file https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null; }
   done

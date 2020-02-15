@@ -129,8 +129,8 @@ else
 fi
 
 # Load Needed Functions
-if [ -e /sbin/${MODID}-functions ]; then
-  . /sbin/${MODID}-functions
+if [ -e $MODPATH/${MODID}-functions ]; then
+  . $MODPATH/${MODID}-functions
 else
   echo "! Can't find functions script! Aborting!"; exit 1
 fi
@@ -383,18 +383,10 @@ mod_head() {
 }
 
 if test_connection; then
-  online=true
-  echo -e "\nFetching available binaries"
-  rm -f $MODDIR/.binaries
-  wget -qO $MODDIR/.binaries https://raw.githubusercontent.com/Zackptg5/Cross-Compiled-Binaries-Android/$branch/includes.txt 2>/dev/null & e_spinner
-  echo " - Done"
   check_updates & e_spinner
-  [ -f $MODDIR/tmp ] && { echo -e " - Applying mod updates and restarting"; ccbins && quit; } || echo " - Ccbins is up to date"
-  check_bin_updates & e_spinner
-  [ -s $MODDIR/tmp ] && { echo -e " - The following binaries need updated:\n"; cat $MODDIR/tmp; } || echo " - Binaries are up to date"
+  [ -f $MODPATH/tmp ] && { echo -e "${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo "${B} - Fontchanger is up to date${N}"
 else
-  online=false
-  echo -e "No internet connection!\nOnline functionality disabled"
+  echo -e "${R} - No internet connection!${N}"
 fi
 #######################################################################################################
 #                                        MENU                                                         #
