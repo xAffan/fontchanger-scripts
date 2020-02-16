@@ -136,7 +136,7 @@ if $BOOTMODE; then
   ui_print " [-] Extracting module files [-] "
 #  unzip -o "$ZIPFILE" "$MODID/*" -d ${MODPATH%/*}/ 2>&1																																																																																																
   unzip -o "$ZIPFILE" 'README.md' -d $TMPDIR 2>&1
-  unzip -o "$TMPDIR/tools.zip" "tools/*" -d $TMPDIR 2>&1
+  unzip -o "$TMPDIR/tools.zip" -d $TMPDIR/tools 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/Custom 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/User 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/avfonts 2>&1
