@@ -4,7 +4,7 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
-scriptver=1
+scriptver=2
 branch=master
 
 get_file_value() {
