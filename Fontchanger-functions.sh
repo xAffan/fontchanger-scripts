@@ -32,6 +32,13 @@ elif [ -d /data/adb/modules/busybox-ndk ]; then
     _bb=/data/adb/modules/busybox-ndk/system/$i/busybox
     BBox=true
   done
+elif [ -d /data/adb/modules/ccbins ]; then
+  BIN=$(find /data/adb/modules/ccbins/system/* -maxdepth 0 | sed 's#.*/##')
+  for i in $BIN; do
+    PATH=/data/adb/modules/ccbins/system/$i:$PATH
+    _bb=/data/adb/modules/ccbins/system/$i/busybox
+    BBox=true
+  done
 elif [ -d /sbin/.magisk/busybox ]; then
   PATH=/sbin/.magisk/busybox:$PATH
   _bb=/sbin/.magisk/busybox/busybox
