@@ -89,7 +89,7 @@ elif [ -d /sbin/.magisk/modules/busybox-ndk ]; then
     BBox=true
   done
 elif [ -d /sbin/.magisk/modules/ccbins ]; then
-  BIN=$(find /sbin/.magisk/modules/ccbins/system/* -maxdepth 0 | sed 's#.*/##')
+  BIN=$(find /sbin/.magisk/modules/ccbins/system*bin -maxdepth 0 | sed 's#.*/##')
   for i in $BIN; do
     PATH=/sbin/.magisk/modules/ccbins/system/$i:$PATH
     _bb=/sbin/.magisk/modules/ccbins/system/$i/busybox
