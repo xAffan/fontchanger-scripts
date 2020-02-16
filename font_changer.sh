@@ -129,8 +129,8 @@ else
 fi
 
 # Load Needed Functions
-if [ -e $MODPATH/${MODID}-functions ]; then
-  . $MODPATH/${MODID}-functions
+if [ -e $MODPATH/${MODID}-functions.sh ]; then
+  . $MODPATH/${MODID}-functions.sh
 else
   echo "! Can't find functions script! Aborting!"; exit 1
 fi
@@ -382,9 +382,10 @@ mod_head() {
   echo -e ""
 }
 
+rm -f $MODPATH/tmp
 if test_connection; then
   check_updates & e_spinner
-  [ -f $MODPATH/tmp ] && { echo -e "${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo "${B} - Fontchanger is up to date${N}"
+  [ -f $MODPATH/tmp ] && { echo -e "${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo -e "${B} - Fontchanger is up to date${N}"
 else
   echo -e "${R} - No internet connection!${N}"
 fi
