@@ -90,7 +90,6 @@ $WGET -O $MODPATH/listforcustom.txt https://github.com/johnfawkes/fontchanger-sc
 #$WGET -O $MODPATH/service.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/service.sh 2>/dev/null
 $WGET -O $MODPATH/uninstall.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/uninstall.sh 2>/dev/null
 $WGET -O $MODPATH/fonts-list.txt https://github.com/johnfawkes/fontchanger-scripts/raw/master/fonts-list.txt 2>/dev/null
-$WGET -O $TMPDIR/tools.zip https://github.com/johnfawkes/fontchanger-scripts/raw/master/tools.zip
 }
 
 set_vars
@@ -133,8 +132,10 @@ if $BOOTMODE; then
       ui_print " [-] Backup and Restore Successful [-] "
     fi
   fi
+  ui_print " [-] Downloading Needed Binary Files [-] "
+  $WGET -O $TMPDIR/tools.zip https://github.com/johnfawkes/fontchanger-scripts/raw/master/tools.zip
   ui_print " [-] Extracting module files [-] "
-#  unzip -o "$ZIPFILE" "$MODID/*" -d ${MODPATH%/*}/ 2>&1																																																																																																
+#  unzip -o "$ZIPFILE" "$MODID/*" -d ${MODPATH%/*}/ 2>&1
   unzip -o "$ZIPFILE" 'README.md' -d $TMPDIR 2>&1
   unzip -o "$TMPDIR/tools.zip" -d $TMPDIR/tools 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/Custom 2>&1
