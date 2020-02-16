@@ -137,6 +137,7 @@ if $BOOTMODE; then
   ui_print " [-] Extracting module files [-] "
 #  unzip -o "$ZIPFILE" "$MODID/*" -d ${MODPATH%/*}/ 2>&1
   unzip -o "$ZIPFILE" 'README.md' -d $TMPDIR 2>&1
+  mkdir -p $TMPDIR/tools
   unzip -o "$TMPDIR/tools.zip" -d $TMPDIR/tools 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/Custom 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/User 2>&1
@@ -189,4 +190,5 @@ mv $MODPATH/font_changer.sh $MODPATH/system/bin/font_changer
 if [ -d /sbin/.Fontchanger ]; then
   rm -rf /sbin/.Fontchanger
 fi
+rm -rf $TMPDIR/tools
 set +x
