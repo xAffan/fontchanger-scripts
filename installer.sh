@@ -23,7 +23,14 @@ exxit() {
   set +euxo pipefail
   [ $1 -ne 0 ] && abort "$2"
   exit $1
-} 
+}
+
+test_connection4 () {
+test=google.com
+if nc -zw1 $test 443 && echo | openssl s_client -connect $test:443 2>&1 | awk 'handshake && $1 == "Verification" { if ($2=="OK") exit; exit 1 } $1 $2 == "SSLhandshake" { handshake = 1 }'; then
+  echo "we have connectivity"
+fi
+}
 
 test_connection() {
   ui_print " [-] Testing internet connection [-] "
@@ -77,13 +84,13 @@ version_changes() {
 
 download_files() {
 ui_print " - Downloading needed files"
-wget -O $MODPATH/font_changer.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/font_changer.sh 2>/dev/null
-wget -O $MODPATH/Fontchanger-functions.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/Fontchanger-functions.sh 2>/dev/null
-wget -O $MODPATH/listforcustom.txt https://github.com/johnfawkes/fontchanger-scripts/raw/master/listforcustom.txt 2>/dev/null
-#wget -O $MODPATH/service.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/service.sh 2>/dev/null
-wget -O $MODPATH/uninstall.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/uninstall.sh 2>/dev/null
-wget -O $MODPATH/fonts-list.txt https://github.com/johnfawkes/fontchanger-scripts/raw/master/fonts-list.txt 2>/dev/null
-wget -O $TMPDIR/tools.zip https://github.com/johnfawkes/fontchanger-scripts/raw/master/tools.zip
+$WGET -O $MODPATH/font_changer.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/font_changer.sh 2>/dev/null
+$WGET -O $MODPATH/Fontchanger-functions.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/Fontchanger-functions.sh 2>/dev/null
+$WGET -O $MODPATH/listforcustom.txt https://github.com/johnfawkes/fontchanger-scripts/raw/master/listforcustom.txt 2>/dev/null
+#$WGET -O $MODPATH/service.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/service.sh 2>/dev/null
+$WGET -O $MODPATH/uninstall.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/uninstall.sh 2>/dev/null
+$WGET -O $MODPATH/fonts-list.txt https://github.com/johnfawkes/fontchanger-scripts/raw/master/fonts-list.txt 2>/dev/null
+$WGET -O $TMPDIR/tools.zip https://github.com/johnfawkes/fontchanger-scripts/raw/master/tools.zip
 }
 
 set_vars
@@ -129,7 +136,7 @@ if $BOOTMODE; then
   ui_print " [-] Extracting module files [-] "
 #  unzip -o "$ZIPFILE" "$MODID/*" -d ${MODPATH%/*}/ 2>&1																																																																																																
   unzip -o "$ZIPFILE" 'README.md' -d $TMPDIR 2>&1
-  unzip -o "$TMPDIR/tools" "tools/*" -d $TMPDIR 2>&1
+  unzip -o "$TMPDIR/tools.zip" "tools/*" -d $TMPDIR 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/Custom 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/User 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/avfonts 2>&1
@@ -160,7 +167,7 @@ if $BOOTMODE; then
     exxit " [!] No Internet Detected... [!] " 
   fi
 else
-  ui_print "- Only uninstall is supported in recovery"
+  ui_print " [!] Only uninstall is supported in recovery [!] "
   rm -rf $MODPATH $NVBASE/modules_update/$MODID $TMPDIR 2>/dev/null
   abort "Uninstalling!"
 fi
