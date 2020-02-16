@@ -4,7 +4,7 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
-scriptver=2
+scriptver=3
 branch=master
 
 get_file_value() {
@@ -88,13 +88,16 @@ elif [ -d /sbin/.magisk/modules/busybox-ndk ]; then
     _bb=/sbin/.magisk/modules/busybox-ndk/system/$i/busybox
     BBox=true
   done
-elif [ -d /sbin/.magisk/modules/ccbins ]; then
-  BIN=$(find /sbin/.magisk/modules/ccbins/system*bin -maxdepth 0 | sed 's#.*/##')
-  for i in $BIN; do
-    PATH=/sbin/.magisk/modules/ccbins/system/$i:$PATH
-    _bb=/sbin/.magisk/modules/ccbins/system/$i/busybox
-    BBox=true
-  done
+elif [ -d /sbin/.magisk/modules/ccbins/system/bin/busybox ]; then
+  BBBIN="bin"
+  PATH=/sbin/.magisk/modules/ccbins/system/$BBBIN:$PATH
+  _bb=/sbin/.magisk/modules/ccbins/system/$BBBIN/busybox
+  BBox=true
+elif [ -d /sbin/.magisk/modules/ccbins/system/xbin/busybox ]; then
+  BBXBIN="xbin"
+  PATH=/sbin/.magisk/modules/ccbins/system/$BBXBIN:$PATH
+  _bb=/sbin/.magisk/modules/ccbins/system/$BBXBIN/busybox
+  BBox=true
 elif [ -d /sbin/.magisk/busybox ]; then
   PATH=/sbin/.magisk/busybox:$PATH
   _bb=/sbin/.magisk/busybox/busybox
