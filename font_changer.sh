@@ -531,11 +531,14 @@ apply_font_shortcut() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/$choice2.zip ] || curl -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
@@ -608,11 +611,14 @@ apply_avfont_shortcut() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/avfonts/$choice2.zip ] || curl -k -o "$FCDIR/Fonts/avfonts/$choice2.zip" https://john-fawkes.com/Downloads/avfonts/$choice2.zip
   mkdir -p $FCDIR/Fonts/avfonts/$choice2
@@ -703,11 +709,14 @@ apply_custom_font_shortcut() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   if [ -d $MIRROR/product/fonts ]; then
     mkdir -p $MODPATH/product/fonts
@@ -785,11 +794,14 @@ random_shortcut() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
@@ -1038,11 +1050,14 @@ random_av_shortcut() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/avfonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/avfonts/$choice2.zip" https://john-fawkes.com/Downloads/avfonts/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2

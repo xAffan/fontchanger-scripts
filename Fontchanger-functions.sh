@@ -699,11 +699,14 @@ apply_custom_font() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   if [ -d $MIRROR/product/fonts ]; then
     mkdir -p $MODPATH/product/fonts
@@ -823,11 +826,14 @@ apply_font() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
@@ -959,11 +965,14 @@ apply_avfont() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/avfonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/avfonts/$choice2.zip" https://john-fawkes.com/Downloads/avfonts/$choice2.zip
   mkdir -p $FCDIR/Fonts/avfonts/$choice2
@@ -1117,11 +1126,14 @@ default_menu() {
           mv -f $i $FCDIR/Emojis/Backups/system/product
         fi
       done
-      if [ -d $MODPATH/system ]; then
-        rm -rf $MODPATH/system
+      if [ -d $MODPATH/system/fonts ]; then
+        rm -rf $MODPATH/system/fonts
       fi
-      if [ -d $MODPATH/product ]; then
-        rm -rf $MODPATH/product
+      if [ -d $MODPATH/product/fonts ]; then
+        rm -rf $MODPATH/product/fonts
+      fi
+      if [ -d $MODPATH/system/product/fonts ]; then
+        rm -rf $MODPATH/system/product/fonts
       fi
       truncate -s 0 $CFONT
       ;;
@@ -1234,11 +1246,14 @@ apply_user_font() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/User/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/User/$choice2.zip" https://john-fawkes.com/Downloads/User/$choice2.zip
   mkdir -p $FCDIR/Fonts/User/$choice2
@@ -1685,22 +1700,29 @@ random_menu() {
       choice2="$(echo -e $choice3 | sed 's/.zip//')"
       #    choice2="$(sed -n ${choice}p $FCDIR/fonts-list.txt | tr -d '.zip')"
       $SLEEP 2
-    if [ -d $MODPATH/system ] || [ -d $MODPATH/product ]; then
-      for i in $MODPATH/*/*/*Emoji*.ttf; do
-        if [ -e $i ]; then
-          mv -f $i $MODPATH
-        fi
-      done
-    fi
-    if [ -d $MODPATH/system/product ]; then
-      for i in $MODPATH/*/*/*/*Emoji*.ttf; do
-        if [ -e $i ]; then
-          mv -f $i $MODPATH
-        fi
-      done
-    fi
-      rm -rf $MODPATH/system
-      rm -rf $MODPATH/product
+      if [ -d $MODPATH/system ] || [ -d $MODPATH/product ]; then
+        for i in $MODPATH/*/*/*Emoji*.ttf; do
+          if [ -e $i ]; then
+            mv -f $i $MODPATH
+          fi
+        done
+      fi
+      if [ -d $MODPATH/system/product ]; then
+        for i in $MODPATH/*/*/*/*Emoji*.ttf; do
+          if [ -e $i ]; then
+            mv -f $i $MODPATH
+          fi
+        done
+      fi
+      if [ -d $MODPATH/system/fonts ]; then
+        rm -rf $MODPATH/system/fonts
+      fi
+      if [ -d $MODPATH/product/fonts ]; then
+        rm -rf $MODPATH/product/fonts
+      fi
+      if [ -d $MODPATH/system/product/fonts ]; then
+        rm -rf $MODPATH/system/product/fonts
+      fi
       [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/$choice2.zip
       mkdir -p $FCDIR/Fonts/$choice2
       unzip -o "$FCDIR/Fonts/$choice2.zip" -d $FCDIR/Fonts/$choice2
@@ -1789,11 +1811,14 @@ random_av() {
       fi
     done
   fi
-  if [ -d $MODPATH/system ]; then
-    rm -rf $MODPATH/system
+  if [ -d $MODPATH/system/fonts ]; then
+    rm -rf $MODPATH/system/fonts
   fi
-  if [ -d $MODPATH/product ]; then
-    rm -rf $MODPATH/product
+  if [ -d $MODPATH/product/fonts ]; then
+    rm -rf $MODPATH/product/fonts
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+    rm -rf $MODPATH/system/product/fonts
   fi
   [ -e $FCDIR/Fonts/avfonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/avfonts/$choice2.zip" https://john-fawkes.com/Downloads/avfonts/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
