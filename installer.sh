@@ -19,12 +19,6 @@ set_permissions() {
 #  set +x
 }
 
-exxit() {
-  set +euxo pipefail
-  [ $1 -ne 0 ] && abort "$2"
-  exit $1
-}
-
 test_connection4 () {
 test=google.com
 if nc -zw1 $test 443 && echo | openssl s_client -connect $test:443 2>&1 | awk 'handshake && $1 == "Verification" { if ($2=="OK") exit; exit 1 } $1 $2 == "SSLhandshake" { handshake = 1 }'; then
@@ -134,12 +128,6 @@ fi
 
 set_busybox $_bb
 [ $? -ne 0 ] && exit $?
-[ -n "$ANDROID_SOCKET_adbd" ] && alias clear='echo'
-_bbname="$($_bb | head -n1 | awk '{print $1,$2}')"
-if [ "$_bbname" == "" ]; then
-  _bbname="BusyBox not found!"
-  BBox=false
-fi
 
 set_vars
 if $BOOTMODE; then
@@ -182,7 +170,7 @@ if $BOOTMODE; then
     fi
   fi
   ui_print " [-] Downloading Needed Binary Files [-] "
-  $WGET -O $TMPDIR/tools.zip https://github.com/johnfawkes/fontchanger-scripts/raw/master/tools.zip
+  wget -O $TMPDIR/tools.zip https://github.com/johnfawkes/fontchanger-scripts/raw/master/tools.zip
   ui_print " [-] Extracting module files [-] "
 #  unzip -o "$ZIPFILE" "$MODID/*" -d ${MODPATH%/*}/ 2>&1
   unzip -o "$ZIPFILE" 'README.md' -d $TMPDIR 2>&1
