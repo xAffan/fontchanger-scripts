@@ -223,7 +223,7 @@ download_files
 version_changes
 mkdir -p $MODPATH/system/bin
 set_permissions
-mv $MODPATH/font_changer.sh $MODPATH/system/bin/font_changer
+mv $MODPATH/font_changer $MODPATH/system/bin/font_changer
 if [ -d /sbin/.Fontchanger ]; then
   rm -rf /sbin/.Fontchanger
 fi

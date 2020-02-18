@@ -128,7 +128,10 @@ retry() {
 is_not_empty() {
   DIR="$1"
   DIR2="$2"
-  if $2; then
+  DIR3="$3"
+  if $3; then
+    "$(ls -Ap $DIR $DIR2 $DIR3 | grep -v "/")"
+  elif $2; then
     "$(ls -Ap $DIR $DIR2 | grep -v "/")"
   else
     "$(ls -Ap $DIR | grep -v "/")"
