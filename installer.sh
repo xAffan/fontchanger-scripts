@@ -7,7 +7,7 @@ set_permissions() {
   if [ -e $MODPATH/busybox ]; then
     set_perm $MODPATH/busybox 0 0 0755
   fi
-  set_perm $MODPATH/system/bin/font_changer 0 0 0700
+  set_perm $MODPATH/font_changer 0 0 0700
 
   for file in $MODPATH/*.sh; do
     [ -f $file ] && set_perm $file  0  0  0700
@@ -109,22 +109,20 @@ elif [ -d /sbin/.magisk/modules/busybox-ndk ]; then
     _bb=/sbin/.magisk/modules/busybox-ndk/system/$i/busybox
     BBox=true
   done
-elif [ -d /sbin/.magisk/modules/ccbins/system/bin/busybox ]; then
+elif [ -f /sbin/.magisk/modules/ccbins/system/bin/busybox ]; then
   PATH=/sbin/.magisk/modules/ccbins/system/bin:$PATH
   _bb=/sbin/.magisk/modules/ccbins/system/bin/busybox
   BBox=true
-elif [ -d /sbin/.magisk/modules/ccbins/system/xbin/busybox ]; then
+elif [ -f /sbin/.magisk/modules/ccbins/system/xbin/busybox ]; then
   PATH=/sbin/.magisk/modules/ccbins/system/xbin:$PATH
   _bb=/sbin/.magisk/modules/ccbins/system/xbin/busybox
   BBox=true
+elif [ -f $TMPDIR/tools/busybox ]; then
+  PATH=$TMPDIR/tools:$PATH
+  _bb=$TMPDIR/tools/busybox
 elif [ -d /sbin/.magisk/busybox ]; then
   PATH=/sbin/.magisk/busybox:$PATH
   _bb=/sbin/.magisk/busybox/busybox
-  BBox=true
-elif [ -f $MODPATH/busybox ]; then
-  PATH=$MODPATH/busybox:$PATH
-  _bb=$MODPATH/busybox
-  BBox=true
 fi
 
 set_busybox $_bb
