@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=5
+MODUTILVCODE=6
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -126,15 +126,10 @@ retry() {
 }
 
 is_not_empty() {
-  DIR="$1"
-  DIR2="$2"
-  DIR3="$3"
-  if $3; then
-    "$(ls -Ap $DIR $DIR2 $DIR3 | grep -v "/")"
-  elif $2; then
-    "$(ls -Ap $DIR $DIR2 | grep -v "/")"
+  if [ "$(ls -Ap $1 $2 $3 | grep -v "/")" ]; then
+    :
   else
-    "$(ls -Ap $DIR | grep -v "/")"
+    :
   fi
 }
 
@@ -1593,7 +1588,7 @@ clear_menu () {
   while [ "$choice" != "q" ]; do
     CHECK=$(du -hs $FCDIR/Fonts/* | cut -c-4)
     CHECK2=$(du -hs $FCDIR/Emojis/* | cut -c-4)
-    if is_not_empty $FCDIR/Fonts/*; then
+    if is_not_empty $FCDIR/Fonts; then
       echo -e "${B}Checking Space...${N}"
       echo -e " "
       echo -e "${B}Your Font Zips are Taking Up $CHECK Space${N}"
@@ -1635,7 +1630,7 @@ clear_menu () {
         ;;
       esac
     else
-      echo -e "${R}[-] No Font Zips Found${N}"
+      echo -e "${R}[-] No Emoji Zips Found${N}"
     fi
     if is_not_empty $FCDIR/Emojis/*; then
       echo -e "${B}Checking Space...${N}"
