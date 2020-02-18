@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=6
+MODUTILVCODE=7
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -126,7 +126,7 @@ retry() {
 }
 
 is_not_empty() {
-  if [ "$(ls -Ap $1 $2 $3 | grep -v "/")" ]; then
+  if [ "$(ls -Ap $1 $2 $3 | grep ".zip")" ]; then
     :
   else
     :
@@ -1587,12 +1587,18 @@ clear_menu () {
   choice=""
   choice2=""
   while [ "$choice" != "q" ]; do
-    CHECK=$(du -hs $FCDIR/Fonts/* | cut -c-4)
-    CHECK2=$(du -hs $FCDIR/Emojis/* | cut -c-4)
+    CHECKFONTS=$(du -hs $FCDIR/Fonts/*.zip | cut -c-4)
+    CHECKAV=$(du -hs $FCDIR/Fonts/avfonts/*.zip | cut -c-4)
+    CHECKUSER=$(du -hs $FCDIR/User/*.zip | cut -c-4)
+    CHECKEMOJI=$(du -hs $FCDIR/Emojis/*.zip | cut -c-4)
     if is_not_empty $FCDIR/Fonts; then
       echo -e "${B}Checking Space...${N}"
       echo -e " "
-      echo -e "${B}Your Font Zips are Taking Up $CHECK Space${N}"
+      echo -e "${B}Your Font Zips are Taking Up $CHECKFONTS Space${N}"
+      echo -e " "
+      echo -e "${B}Your UserFont Zips are Taking Up $CHECKUSER Space${N}"
+      echo -e " "
+      echo -e "${B}Your AVFont Zips are Taking Up $CHECKAV Space${N}"
       echo -e " "
       echo -e "${G}[-] Would You Like to Delete the Downloaded Font Zips to Save Space?${N}"
       echo -e " "
@@ -1633,10 +1639,10 @@ clear_menu () {
     else
       echo -e "${R}[-] No Emoji Zips Found${N}"
     fi
-    if is_not_empty $FCDIR/Emojis/*; then
+    if is_not_empty $FCDIR/Emojis; then
       echo -e "${B}Checking Space...${N}"
       echo -e " "
-      echo -e "${B}Your Emoji Zips are Taking Up $CHECK2 Space${N}"
+      echo -e "${B}Your Emoji Zips are Taking Up $CHECKEMOJI Space${N}"
       echo -e " "
       echo -e "${G}[-] Would You Like to Delete the Downloaded Emoji Zips to Save Space?${N}"
       echo -e " "
