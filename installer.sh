@@ -7,6 +7,7 @@ set_permissions() {
   if [ -e $MODPATH/busybox ]; then
     set_perm $MODPATH/busybox 0 0 0755
   fi
+  set_perm $MODPATH/system/bin/font_changer 0 0 0700
 
   for file in $MODPATH/*.sh; do
     [ -f $file ] && set_perm $file  0  0  0700
