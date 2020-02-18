@@ -4,7 +4,7 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
-scriptver=4
+scriptver=5
 branch=master
 
 get_file_value() {
@@ -88,15 +88,13 @@ elif [ -d /sbin/.magisk/modules/busybox-ndk ]; then
     _bb=/sbin/.magisk/modules/busybox-ndk/system/$i/busybox
     BBox=true
   done
-elif [ -d /sbin/.magisk/modules/ccbins/system/bin/busybox ]; then
-  BBBIN="bin"
-  PATH=/sbin/.magisk/modules/ccbins/system/$BBBIN:$PATH
-  _bb=/sbin/.magisk/modules/ccbins/system/$BBBIN/busybox
+elif [ -f /sbin/.magisk/modules/ccbins/system/bin/busybox ]; then
+  PATH=/sbin/.magisk/modules/ccbins/system/bin:$PATH
+  _bb=/sbin/.magisk/modules/ccbins/system/bin/busybox
   BBox=true
-elif [ -d /sbin/.magisk/modules/ccbins/system/xbin/busybox ]; then
-  BBXBIN="xbin"
-  PATH=/sbin/.magisk/modules/ccbins/system/$BBXBIN:$PATH
-  _bb=/sbin/.magisk/modules/ccbins/system/$BBXBIN/busybox
+elif [ -f /sbin/.magisk/modules/ccbins/system/xbin/busybox ]; then
+  PATH=/sbin/.magisk/modules/ccbins/system/xbin:$PATH
+  _bb=/sbin/.magisk/modules/ccbins/system/xbin/busybox
   BBox=true
 elif [ -d /sbin/.magisk/busybox ]; then
   PATH=/sbin/.magisk/busybox:$PATH

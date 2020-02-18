@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=4
+MODUTILVCODE=5
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -32,15 +32,13 @@ elif [ -d /data/adb/modules/busybox-ndk ]; then
     _bb=/data/adb/modules/busybox-ndk/system/$i/busybox
     BBox=true
   done
-elif [ -d /sbin/.magisk/modules/ccbins/system/bin/busybox ]; then
-  BBBIN="bin"
-  PATH=/sbin/.magisk/modules/ccbins/system/$BBBIN:$PATH
-  _bb=/sbin/.magisk/modules/ccbins/system/$BBBIN/busybox
+elif [ -f /sbin/.magisk/modules/ccbins/system/bin/busybox ]; then
+  PATH=/sbin/.magisk/modules/ccbins/system/bin:$PATH
+  _bb=/sbin/.magisk/modules/ccbins/system/bin/busybox
   BBox=true
-elif [ -d /sbin/.magisk/modules/ccbins/system/xbin/busybox ]; then
-  BBXBIN="xbin"
-  PATH=/sbin/.magisk/modules/ccbins/system/$BBXBIN:$PATH
-  _bb=/sbin/.magisk/modules/ccbins/system/$BBXBIN/busybox
+elif [ -f /sbin/.magisk/modules/ccbins/system/xbin/busybox ]; then
+  PATH=/sbin/.magisk/modules/ccbins/system/xbin:$PATH
+  _bb=/sbin/.magisk/modules/ccbins/system/xbin/busybox
   BBox=true
 elif [ -d /sbin/.magisk/busybox ]; then
   PATH=/sbin/.magisk/busybox:$PATH
