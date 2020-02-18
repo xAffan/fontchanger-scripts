@@ -78,7 +78,7 @@ version_changes() {
 
 download_files() {
 ui_print " - Downloading needed files"
-wget -O $MODPATH/font_changer.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/font_changer.sh 2>/dev/null
+wget -O $MODPATH/font_changer https://github.com/johnfawkes/fontchanger-scripts/raw/master/font_changer 2>/dev/null
 wget -O $MODPATH/Fontchanger-functions.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/Fontchanger-functions.sh 2>/dev/null
 wget -O $MODPATH/listforcustom.txt https://github.com/johnfawkes/fontchanger-scripts/raw/master/listforcustom.txt 2>/dev/null
 #wget -O $MODPATH/service.sh https://github.com/johnfawkes/fontchanger-scripts/raw/master/service.sh 2>/dev/null

@@ -1507,10 +1507,11 @@ font_clear_menu() {
         #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
         for i in $FCDIR/Fonts/*.zip; do
           rm -f $i
+          for j in $FCDIR/Fonts/*/*.zip; do
+            rm -rf $j
+          done
         done
-        for i in $FCDIR/Fonts/*/*.zip; do
-          rm -rf $i
-        done
+        break
       ;;
       n)
         echo -e "${R}[-] Not Removing Fonts${N}"
