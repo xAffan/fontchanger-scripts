@@ -176,8 +176,6 @@ if $BOOTMODE; then
   mkdir -p $TMPDIR/tools
   unzip -o "$TMPDIR/tools.zip" -d $TMPDIR/tools 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Fonts/Custom 2>&1
-  mkdir -p /storage/emulated/0/Fontchanger/Fonts/User 2>&1
-  mkdir -p /storage/emulated/0/Fontchanger/Fonts/avfonts 2>&1
   mkdir -p /storage/emulated/0/Fontchanger/Emojis/Custom 2>&1
   chmod 0755 $TMPDIR/tools/curl-$ARCH32
   chmod 0755 $TMPDIR/tools/busybox-$ARCH32
@@ -192,11 +190,9 @@ if $BOOTMODE; then
         rm $i 2>&1
       fi
     done
-    $TMPDIR/tools/curl-$ARCH32 -k -o /storage/emulated/0/Fontchanger/fonts-list.txt https://john-fawkes.com/Downloads/fontlist/fonts-list.txt
-    $TMPDIR/tools/curl-$ARCH32 -k -o /storage/emulated/0/Fontchanger/user-fonts-list.txt https://john-fawkes.com/Downloads/userfontlist/user-fonts-list.txt
+    $TMPDIR/tools/curl-$ARCH32 -k -o /storage/emulated/0/Fontchanger/fonts.txt https://john-fawkes.com/Downloads/fontlist/fonts.txt
     $TMPDIR/tools/curl-$ARCH32 -k -o /storage/emulated/0/Fontchanger/emojis-list.txt https://john-fawkes.com/Downloads/emojilist/emojis-list.txt
-    $TMPDIR/tools/curl-$ARCH32 -k -o /storage/emulated/0/Fontchanger/avfonts-list.txt https://john-fawkes.com/Downloads/avfontlist/avfonts-list.txt
-    if [ -f /storage/emulated/0/Fontchanger/fonts-list.txt ] && [ -f /storage/emulated/0/Fontchanger/emojis-list.txt ] && [ -f /storage/emulated/0/Fontchanger/user-fonts-list.txt ] && [ -f /storage/emulated/0/Fontchanger/avfonts-list.txt ]; then
+    if [ -f /storage/emulated/0/Fontchanger/fonts.txt ] && [ -f /storage/emulated/0/Fontchanger/emojis-list.txt ]; then
       ui_print " [-] All Lists Downloaded Successfully... [-] "
     else
       ui_print " [!] Error Downloading Lists... [!] "
