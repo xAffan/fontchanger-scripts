@@ -1,0 +1,5 @@
+9 - 2.27.2020
+* Updated check_updates function
+
+8 - 2.27.2020
+* Fix conflict font modules installed

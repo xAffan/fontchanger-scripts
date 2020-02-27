@@ -60,11 +60,16 @@ if [ "$_bbname" == "" ]; then
 fi
 
 check_updates() {
-  rm -f $MODPATH/tmp 2>&1
-  echo -e "${B}Checking for mod updates${N}"
+  echo -e "\n${B}Checking for mod updates${N}"
+  rm -f $MODPATH/.updated 2>&1
+  wget -qO $MODDIR/.changelog https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branch/changelog.txt 2>/dev/null
   for i in Fontchanger-functions.sh,MODUTILVCODE system/bin/font_changer,scriptver; do
     local file="$(echo $i | cut -d , -f1)" value="$(echo $i | cut -d , -f2)"
-    [ `wget -qO - https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ] && { echo -n 1 > $MODPATH/tmp; wget -qO $MODPATH/$file https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null; }
+    if [ `wget -qO - https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ]; then
+      echo "$scriptver" > $MODPATH/.updated
+      wget -qO $MODPATH/$file https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null
+      [ "$file" == "system/bin/font_changer" ] && { umount -l /$file; mount -o bind $MODDIR/$file /$file; }
+    fi
   done
 }
 
@@ -1586,6 +1591,66 @@ choose_help_menu() {
     *)
       invalid
       ;;
+    esac
+  done
+}
+
+hidden_menu() {
+  branches=($(curl https://api.github.com/repos/johnfawkes/fontchanger-scripts/branches | grep "name" | sed 's/name//' | sed 's/://' | sed 's/"//' | sed 's/"//' | sed 's/,//'))
+  choice=""
+  while [ "$choice" != "q" ]; do
+  clear
+  echo -e "$div"
+  echo -e " "
+  title_div "${B}Welcome to the Dark Side${N}"
+  echo -e " "
+  echo -e "$div"
+  echo -e " "
+  $test_connection || { echo -e "${G}Internet is Needed For This, Going Back to Main Menu\n${N}"; sleep 4 && menu; }
+  title_div "${Y}Current branch:${N}"
+  echo -e " "
+  title_div "$branch"
+  echo -e " "
+  echo -e "$div"
+  echo -e " "
+  echo -e "${B}Which Branch Would You like to Update to?${N}"
+  echo -e " "
+  echo -e "$div"
+  c=1
+  for i in ${branch[@]}; do
+    echo -e "${W}[$c]${N} ${B}$i${N}" | grep $i | sed 's/"//' | sed 's/"//' && echo -e "[$c] $i" >> $MODPATH/.branches.txt
+    echo -e " "
+    c=$((c+1))
+  done
+    echo -e "${W}[R] - Return to Main Menu${N}"
+    echo -e " "
+    echo -e "${R}[Q] - Quit${N}"
+    echo -e " "
+    echo -e "${B}[CHOOSE] : ${N}"
+    echo -e " "
+    read -r choice
+    branchchoice="$(grep -w $choice $MODPATH/.branches.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
+    case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
+      *)
+        if [ $choice = "q" ]; then
+          echo -e "${R}Quiting...${N}"
+          clear
+          quit
+        elif [ $choice = "r" ]; then
+          return_menu
+        elif [[ -n ${choice//[0-9]/} ]]; then
+          invalid
+        else
+          echo "Applying mod updates and restarting"
+          echo "$scriptver" > $MODPATH/.updated
+          wget -qO $MODPATH/.changelog https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branchchoice/changelog.txt 2>/dev/null
+          wget -qO $MODPATH/system/bin/font_changer https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branchchoice/font_changer 2>/dev/null
+          wget -qO $MODPATH/Fontchanger-functions.sh https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branchchoice/Fontchnager-functions.sh 2>/dev/null
+          umount -l /system/bin/font_changer
+          mount -o bind $MODPATH/system/bin/font_changer /system/bin/font_changer
+          font_changer && quit
+        fi
+        ;;
     esac
   done
 }

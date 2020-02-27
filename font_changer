@@ -390,10 +390,18 @@ mod_head() {
   echo -e ""
 }
 
-rm -f $MODPATH/tmp
-if test_connection; then
+if [ -f $MODPATH/.updated ]; then
+  echo -e "${G}Fontchanger succesfully updated!${N}"
+  oldver="$(cat $MODPATH/.updated)" newver="$scriptver"
+  oldline=$(sed -n "/^$oldver/=" $MODPATH/.changelog) newline=$(sed -n "/^$newver/=" $MODPATH/.changelog)
+  echo "Changelog: $(sed -n "/^$newver/p" $MODPATH/.changelog)"
+  sed -n "$newline,$oldline p" $MODPATH/.changelog | sed -E '/^[0-9]|^$/d'
+  echo " "
+  sleep 2
+fi
+if $test_connection; then
   check_updates & e_spinner
-  [ -f $MODPATH/tmp ] && { echo -e "${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo -e "${B} - Fontchanger is up to date${N}"
+  [ -f $MODPATH/.updated ] && { echo -e "${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo -e "${B} - Fontchanger is up to date${N}"
 else
   echo -e "${R} - No internet connection!${N}"
 fi
@@ -503,6 +511,9 @@ menu() {
         echo -e "${G}[-] Clear Downloaded Zips Selected...${N}"
         clear_menu
         break
+      ;;
+      9999)
+        hidden_menu
       ;;
       q)
         echo -e "${R}[-] Quiting...${N}"
