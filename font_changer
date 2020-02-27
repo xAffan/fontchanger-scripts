@@ -4,7 +4,7 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
-scriptver=6
+scriptver=7
 branch=master
 
 get_file_value() {
@@ -145,7 +145,7 @@ fi
 
 MODULESPATH=/sbin/.magisk/modules
 setabort=0
-for i in "$MODULESPATH"*; do
+for i in "$MODULESPATH"*/*; do
   if [[ $i != *Fontchanger ]] && [ ! -f $i/disable ] && [ -d $i/system/fonts ]; then
     NAME=$(get_var $i/module.prop)
     ui_print " [!] "
