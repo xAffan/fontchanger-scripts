@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=9
+MODUTILVCODE=10
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -1600,22 +1600,16 @@ hidden_menu() {
   choice=""
   while [ "$choice" != "q" ]; do
   clear
-  echo -e "$div"
   echo -e " "
-  title_div "${B}Welcome to the Dark Side${N}"
-  echo -e " "
-  echo -e "$div"
+  pcenter "${B}Welcome to the Dark Side${N}"
   echo -e " "
   $test_connection || { echo -e "${G}Internet is Needed For This, Going Back to Main Menu\n${N}"; sleep 4 && menu; }
-  title_div "${Y}Current branch:${N}"
+  echo -e "${Y}Current branch:${N}"
   echo -e " "
-  title_div "$branch"
-  echo -e " "
-  echo -e "$div"
+  echo -e "${W}$branch${N}"
   echo -e " "
   echo -e "${B}Which Branch Would You like to Update to?${N}"
   echo -e " "
-  echo -e "$div"
   c=1
   for i in ${branch[@]}; do
     echo -e "${W}[$c]${N} ${B}$i${N}" | grep $i | sed 's/"//' | sed 's/"//' && echo -e "[$c] $i" >> $MODPATH/.branches.txt

@@ -4,8 +4,8 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
-scriptver=9
-branch=master
+scriptver=10
+branch=testing
 
 get_file_value() {
   if [ -f "$1" ]; then
