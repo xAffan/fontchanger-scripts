@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=10
+MODUTILVCODE=11
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -1611,7 +1611,7 @@ hidden_menu() {
   echo -e "${B}Which Branch Would You like to Update to?${N}"
   echo -e " "
   c=1
-  for i in ${branch[@]}; do
+  for i in ${branches[@]}; do
     echo -e "${W}[$c]${N} ${B}$i${N}" | grep $i | sed 's/"//' | sed 's/"//' && echo -e "[$c] $i" >> $MODPATH/.branches.txt
     echo -e " "
     c=$((c+1))
