@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=8
+MODUTILVCODE=9
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -60,11 +60,16 @@ if [ "$_bbname" == "" ]; then
 fi
 
 check_updates() {
-  rm -f $MODPATH/tmp 2>&1
-  echo -e "${B}Checking for mod updates${N}"
+  echo -e "\n${B}Checking for mod updates${N}"
+  rm -f $MODPATH/.updated 2>&1
+  wget -qO $MODPATH/.changelog https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branch/changelog.txt 2>/dev/null
   for i in Fontchanger-functions.sh,MODUTILVCODE system/bin/font_changer,scriptver; do
     local file="$(echo $i | cut -d , -f1)" value="$(echo $i | cut -d , -f2)"
-    [ `wget -qO - https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ] && { echo -n 1 > $MODPATH/tmp; wget -qO $MODPATH/$file https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null; }
+    if [ `wget -qO - https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ]; then
+      echo "$scriptver" > $MODPATH/.updated
+      wget -qO $MODPATH/$file https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null
+      [ "$file" == "system/bin/font_changer" ] && { umount -l /$file; mount -o bind $MODPATH/$file /$file; }
+    fi
   done
 }
 
@@ -176,6 +181,145 @@ if [ $device = "lge" ]; then
     cp -f $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/LG_SlimNumber-Regular.ttf
     cp -f $MODPATH/system/fonts/Roboto-Thin.ttf $MODPATH/system/fonts/LG_SlimNumber-Thin.ttf
   fi
+fi
+}
+
+pixel() {
+if [ -f $MIRROR/system/fonts/GoogleSans-Regular.ttf ]; then
+	cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/GoogleSans-Regular.ttf
+	cp $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/GoogleSans-Italic.ttf
+	cp $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/GoogleSans-Medium.ttf
+	cp $MODPATH/system/fonts/Roboto-MediumItalic.ttf $MODPATH/system/fonts/GoogleSans-MediumItalic.ttf
+	cp $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/GoogleSans-Bold.ttf
+	cp $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/GoogleSans-BoldItalic.ttf
+elif [ -f $MIRROR/system/product/fonts/GoogleSans-Regular.ttf ]; then
+	cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/GoogleSans-Regular.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/GoogleSans-Italic.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/GoogleSans-Medium.ttf
+	cp $MODPATH/system/product/fonts/Roboto-MediumItalic.ttf $MODPATH/system/product/fonts/GoogleSans-MediumItalic.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/GoogleSans-Bold.ttf
+	cp $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/GoogleSans-BoldItalic.ttf
+elif [ -f $MIRROR/product/fonts/GoogleSans-Regular.ttf ]; then
+	cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/GoogleSans-Regular.ttf
+	cp $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/GoogleSans-Italic.ttf
+	cp $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/GoogleSans-Medium.ttf
+	cp $MODPATH/product/fonts/Roboto-MediumItalic.ttf $MODPATH/product/fonts/GoogleSans-MediumItalic.ttf
+	cp $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/GoogleSans-Bold.ttf
+	cp $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/GoogleSans-BoldItalic.ttf
+fi
+}
+
+oxygen() {
+if [ -f $MIRROR/system/fonts/SlateForOnePlus-Regular.ttf ]; then
+	cp $MODPATH/system/fonts/Roboto-Black.ttf $MODPATH/system/fonts/SlateForOnePlus-Black.ttf
+	cp $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SlateForOnePlus-Bold.ttf
+	cp $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/SlateForOnePlus-Medium.ttf
+	cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SlateForOnePlus-Regular.ttf
+	cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SlateForOnePlus-Book.ttf
+	cp $MODPATH/system/fonts/Roboto-Light.ttf $MODPATH/system/fonts/SlateForOnePlus-Light.ttf
+	cp $MODPATH/system/fonts/Roboto-Thin.ttf $MODPATH/system/fonts/SlateForOnePlus-Thin.ttf
+elif [ -f $MIRROR/system/product/fonts/SlateForOnePlus-Regular.ttf ]; then
+	cp $MODPATH/system/product/fonts/Roboto-Black.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Black.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Bold.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Medium.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Regular.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Book.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Light.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Light.ttf
+	cp $MODPATH/system/product/fonts/Roboto-Thin.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Thin.ttf
+elif [ -f $MIRROR/product/fonts/GoogleSans-Regular.ttf ]; then
+	cp $MODPATH/product/fonts/Roboto-Black.ttf $MODPATH/product/fonts/SlateForOnePlus-Black.ttf
+	cp $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SlateForOnePlus-Bold.ttf
+	cp $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/SlateForOnePlus-Medium.ttf
+	cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SlateForOnePlus-Regular.ttf
+	cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SlateForOnePlus-Book.ttf
+	cp $MODPATH/product/fonts/Roboto-Light.ttf $MODPATH/product/fonts/SlateForOnePlus-Light.ttf
+	cp $MODPATH/product/fonts/Roboto-Thin.ttf $MODPATH/product/fonts/SlateForOnePlus-Thin.ttf
+fi
+}
+
+samsung_device() {
+device=$(getprop ro.product.brand 2>/dev/null)
+if [ $device = "samsung" ]; then
+  if [ -d $MODPATH/system/fonts ]; then
+    cp -f $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/RobotoNum-3L.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/RobotoNum-3R.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SamsungSans-Bold.ttf
+    cp -f $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/SamsungSans-BoldItalic.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/SamsungSans-Italic.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/SamsungSans-Medium.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SamsungSans-Regular.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Thin.ttf $MODPATH/system/fonts/SamsungSans-Thin.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Light.ttf $MODPATH/system/fonts/SamsungSans-Light.ttf
+    cp -f $MODPATH/system/fonts/Roboto-LightItalic.ttf $MODPATH/system/fonts/SamsungSans-LightItalic.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SECRobotoLight-Regular.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SECRobotoLight-Bold.ttf
+    cp -f $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SECRobotoCondensed-Bold.ttf
+  elif [ -d $MODPATH/system/product/fonts ]; then
+    cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/RobotoNum-3L.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/RobotoNum-3R.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SamsungSans-Bold.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/system/fonts/SamsungSans-BoldItalic.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/SamsungSans-Italic.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/SamsungSans-Medium.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SamsungSans-Regular.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Thin.ttf $MODPATH/system/product/fonts/SamsungSans-Thin.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Light.ttf $MODPATH/system/product/fonts/SamsungSans-Light.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-LightItalic.ttf $MODPATH/system/product/fonts/SamsungSans-LightItalic.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SECRobotoLight-Regular.ttf
+    cp -f $MODPATH/system/psroduct/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SECRobotoLight-Bold.ttf
+    cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SECRobotoCondensed-Bold.ttf
+  elif [ -d $MODPATH/product/fonts ]; then
+    cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/RobotoNum-3L.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/RobotoNum-3R.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SamsungSans-Bold.ttf
+    cp -f $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/SamsungSans-BoldItalic.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/SamsungSans-Italic.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/SamsungSans-Medium.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SamsungSans-Regular.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Thin.ttf $MODPATH/product/fonts/SamsungSans-Thin.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Light.ttf $MODPATH/product/fonts/SamsungSans-Light.ttf
+    cp -f $MODPATH/product/fonts/Roboto-LightItalic.ttf $MODPATH/product/fonts/SamsungSans-LightItalic.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SECRobotoLight-Regular.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SECRobotoLight-Bold.ttf
+    cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SECRobotoCondensed-Bold.ttf
+  fi
+fi
+}
+
+android10() {
+if [ "$API" -ge 29 ]; then
+	cp -rf $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/NotoSerif-Regular.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/NotoSerif-Bold.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/NotoSerif-Italic.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/NotoSerif-BoldItalic.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SourceSansPro-Regular.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SourceSansPro-Bold.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/SourceSansPro-BoldItalic.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/SourceSansPro-Italic.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/SourceSansPro-SemiBold.ttf
+	cp -rf $MODPATH/system/fonts/Roboto-MediumItalic.ttf $MODPATH/system/fonts/SourceSansPro-SemiBoldItalic.ttf
+elif [ -d $MODPATH/system/product/fonts ]; then
+	cp -rf $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/NotoSerif-Regular.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/NotoSerif-Bold.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/NotoSerif-Italic.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/NotoSerif-BoldItalic.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SourceSansPro-Regular.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SourceSansPro-Bold.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/SourceSansPro-BoldItalic.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/SourceSansPro-Italic.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/SourceSansPro-SemiBold.ttf
+	cp -rf $MODPATH/system/product/fonts/Roboto-MediumItalic.ttf $MODPATH/system/product/fonts/SourceSansPro-SemiBoldItalic.ttf
+elif [ -d $MODPATH/product/fonts ]; then
+	cp -rf $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/NotoSerif-Regular.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/NotoSerif-Bold.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/NotoSerif-Italic.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/NotoSerif-BoldItalic.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SourceSansPro-Regular.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SourceSansPro-Bold.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/SourceSansPro-BoldItalic.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/SourceSansPro-Italic.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/SourceSansPro-SemiBold.ttf
+	cp -rf $MODPATH/product/fonts/Roboto-MediumItalic.ttf $MODPATH/product/fonts/SourceSansPro-SemiBoldItalic.ttf
 fi
 }
 #######################################################################################################
@@ -414,7 +558,7 @@ License: GPLv3+
   The <emoji-folder-name> is the folder that will house your custom emoji file.
   The <font>.ttf are the emoji files. Usually named NotoColorEmoji.ttf.
 EOF
-  menu
+  exit
 }
 #######################################################################################################
 #                                         EMOJIS                                                      #
@@ -607,7 +751,7 @@ list_custom_emoji() {
   num=1
   rm $MODPATH/customemojilist.txt
   touch $MODPATH/customemojilist.txt
-  for i in $(find "$FCDIR/Emojis/Custom" | sort); do
+  for i in $(find "$FCDIR/Emojis/Custom/" -type d | sed 's#.*/##'); do
     $SLEEP 0.1
     echo -e "[$num] $i" >> $MODPATH/customemojilist.txt && echo -e "${W}[$num]${N} ${B}$i${N}"
     num=$((num + 1))
@@ -729,6 +873,10 @@ apply_custom_font() {
     fi
   done
   lg_device
+  pixel
+  samsung_device
+  oxygen
+  android10
   if [ -d $MIRROR/product/fonts ]; then
     set_perm_recursive $MODPATH/product/fonts 0 0 0755 0644
   fi
@@ -859,6 +1007,10 @@ apply_font() {
     fi
   done
   lg_device
+  pixel
+  samsung_device
+  oxygen
+  android10
   if [ -d $FCDIR/Fonts/$choice2 ]; then
     rm -rf $FCDIR/Fonts/$choice2
   fi
@@ -1142,113 +1294,10 @@ update_lists() {
 #######################################################################################################
 #                                        Delete Downloaded Zips                                       #
 #######################################################################################################
-font_clear_menu() {
+clear_font_menu() {
   choice=""
-  while [ "$choice" != "q" ]; do
-    echo " "
-    echo -e "${G}Would You Like to Delete the Downloaded Font Zips?${N}"
-    echo -e " "
-    echo -e "${B}[-] Select an Option...${N}"
-    echo -e " "
-    echo -e "${W}[Y]${N} ${G} - Yes${N}"
-    echo -e " "
-    echo -e "${W}[N]${N} ${G} - No${N}"
-    echo -e " "
-    echo -e "${W}[R]${N} ${G} - Return to Menu${N}"
-    echo -e " "
-    echo -e "${R}[Q] - Quit${N}"
-    echo -e " "
-    echo -e "${B}[CHOOSE] : ${N}"
-    echo -e " "
-    read -r choice
-    case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
-      y)
-        echo -e "${Y}[-] Deleting Font Zips${N}"
-        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
-        for i in $FCDIR/Fonts/*.zip; do
-          rm -f $i
-          for j in $FCDIR/Fonts/*/*.zip; do
-            rm -rf $j
-          done
-        done
-        break
-      ;;
-      n)
-        echo -e "${R}[-] Not Removing Fonts${N}"
-      ;;
-      q)
-        echo -e "${R}[-] Quiting...${N}"
-        clear
-        quit
-      ;;
-      r)
-        echo -e "${G}[-] Return to Menu Selected...${N}"
-        return_menu
-      ;;
-      *)
-        invaild
-        $SLEEP 1.5
-      ;;
-    esac
-  done
-}
-
-emoji_clear_menu() {
-  choice=""
-  while [ "$choice" != "q" ]; do
-    echo " "
-    echo -e "${G}[-] Would You Like to Delete the Downloaded Emoji Zips to Save Space?${N}"
-    echo -e " "
-    echo -e "${B}[-] Select an Option...${N}"
-    echo -e " "
-    echo -e "${W}[Y]${N} ${G} - Yes${N}"
-    echo -e " "
-    echo -e "${W}[N]${N} ${G} - No${N}"
-    echo -e " "
-    echo -e "${W}[R]${N} ${G} - Return to Menu${N}"
-    echo -e " "
-    echo -e "${R}[Q] - Quit${N}"
-    echo -e " "
-    echo -e "${B}[CHOOSE] : ${N}"
-    echo -e " "
-    read -r choice
-    case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
-      y)
-        echo -e "${Y}[-] Deleting Emoji Zips${N}"
-        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
-        for i in $FCDIR/Emojis/*.zip; do
-          rm -f $i
-        done
-        for i in $FCDIR/Emojis/*/*.zip; do
-          rm -rf $i
-        done
-      ;;
-      n)
-        echo -e "${R}[-] Not Removing Emojis${N}"
-      ;;
-      q)
-        echo -e "${R}[-] Quiting...${N}"
-        clear
-        quit
-      ;;
-      r)
-        echo -e "${G}[-] Return to Menu Selected...${N}"
-        return_menu
-      ;;
-      *)
-        invaild
-        $SLEEP 1.5
-      ;;
-    esac
-  done
-}
-
-clear_menu () {
-  choice=""
-  choice2=""
   while [ "$choice" != "q" ]; do
     CHECKFONTS=$(du -hs $FCDIR/Fonts/*.zip | cut -c-4)
-    CHECKEMOJI=$(du -hs $FCDIR/Emojis/*.zip | cut -c-4)
     if is_not_empty $FCDIR/Fonts; then
       echo -e "${B}Checking Space...${N}"
       echo -e " "
@@ -1271,28 +1320,42 @@ clear_menu () {
       read -r choice
       case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
         y)
-          echo -e "${G}[-] Deleting Font Zips...${N}"
-          font_clear_menu
+          echo -e "${Y}[-] Deleting Font Zips${N}"
+        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
+          for i in $FCDIR/Fonts/*.zip; do
+            rm -f $i
+          done
+          break
         ;;
         n)
-          echo -e "${R}[-] Not Removing Font Zips${N}"
-        ;;
-        r)
-          echo -e "${B}[-] Return to Menu Selected...${N}"
-          return_menu
+          echo -e "${R}[-] Not Removing Fonts${N}"
+          break
         ;;
         q)
-          echo -e "${R}[-] Quitting...${N}"
+          echo -e "${R}[-] Quiting...${N}"
           clear
           quit
         ;;
+        r)
+          echo -e "${G}[-] Return to Menu Selected...${N}"
+          return_menu
+          break
+        ;;
         *)
-          invalid
+          invaild
+          $SLEEP 1.5
         ;;
       esac
     else
       echo -e "${R}[-] No Emoji Zips Found${N}"
     fi
+  done
+  return_menu
+}
+clear_emoji_menu() {
+  choice=""
+  CHECKEMOJI=$(du -hs $FCDIR/Emojis/*.zip | cut -c-4)
+  while [ "$choice" != "q" ]; do
     if is_not_empty $FCDIR/Emojis; then
       echo -e "${B}Checking Space...${N}"
       echo -e " "
@@ -1315,23 +1378,30 @@ clear_menu () {
       read -r choice
       case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
         y)
-          echo -e "${G}[-] Deleting Emoji Zips...${N}"
-          emoji_clear_menu
+          echo -e "${Y}[-] Deleting Emoji Zips${N}"
+        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
+          for i in $FCDIR/Emojis/*.zip; do
+            rm -f $i
+          done
+          break
         ;;
         n)
-          echo -e "${R}[-] Not Removing Emoji Zips${N}"
-        ;;
-        r)
-          echo -e "${B}[-] Return to Menu Selected...${N}"
-          return_menu
+          echo -e "${R}[-] Not Removing Emojis${N}"
+          break
         ;;
         q)
-          echo -e "${R}[-] Quitting...${N}"
+          echo -e "${R}[-] Quiting...${N}"
           clear
           quit
         ;;
+        r)
+          echo -e "${G}[-] Return to Menu Selected...${N}"
+          return_menu
+          break
+        ;;
         *)
-          invalid
+          invaild
+          $SLEEP 1.5
         ;;
       esac
     else
@@ -1340,6 +1410,52 @@ clear_menu () {
     fi
   done
   return_menu
+}
+clear_menu() {
+  choice=""
+  while [ "$choice" != "q" ]; do
+    echo -e " "
+    echo -e "${G}[-] Would You Like to Delete the Emoji Zips or Font Zips to Save Space?${N}"
+    echo -e " "
+    echo -e "${B}[-] Select an Option...${N}"
+    echo -e " "
+    echo -e "${W}[1]${N} ${G} - Emojis${N}"
+    echo -e " "
+    echo -e "${W}[2]${N} ${G} - Fonts${N}"
+    echo -e " "
+    echo -e "${W}[R]${N} ${G} - Return to Menu${N}"
+    echo -e " "
+    echo -e "${R}[Q] - Quit${N}"
+    echo -e " "
+    echo -e "${B}[CHOOSE] : ${N}"
+    echo -e " "
+    read -r choice
+    case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
+      1)
+        echo -e "${G}[-] Emojis Zips...${N}"
+        clear_emoji_menu
+        break
+      ;;
+      2)
+        echo -e "${R}[-] Fonts Zips${N}"
+        clear_font_menu
+        break
+      ;;
+      r)
+        echo -e "${B}[-] Return to Menu Selected...${N}"
+        return_menu
+        break
+      ;;
+      q)
+        echo -e "${R}[-] Quitting...${N}"
+        clear
+        quit
+      ;;
+      *)
+        invalid
+      ;;
+    esac
+  done
 }
 #######################################################################################################
 #                                             Random                                                  #
@@ -1413,6 +1529,10 @@ random_menu() {
         fi
       done
       lg_device
+      pixel
+      samsung_device
+      oxygen
+      android10
       if [ -d $FCDIR/Fonts/$choice2 ]; then
         rm -rf $FCDIR/Fonts/$choice2
       fi
@@ -1476,6 +1596,7 @@ choose_font_menu() {
     2)
       echo -e "${B}[-] Random Font Selected...${N}"
       random_menu
+      break
       ;;
     3)
       echo -e "${Y}[-] Custom Fonts Selected...${N}"
@@ -1484,9 +1605,7 @@ choose_font_menu() {
       ;;
     r)
       echo -e "${B}[-] Return to Menu Selected...${N}"
-      clear
-      menu
-      break
+      return_menu
       ;;
     q)
       echo -e "${R}[-] Quitting...${N}"
@@ -1529,9 +1648,7 @@ choose_emoji_menu() {
       ;;
     r)
       echo -e "${B}[-] Return to Menu Selected...${N}"
-      clear
-      menu
-      break
+      return_menu
       ;;
     q)
       echo -e "${R}[-] Quitting...${N}"
@@ -1574,9 +1691,7 @@ choose_help_menu() {
       ;;
     r)
       echo -e "${B}[-] Return to Menu Selected...${N}"
-      clear
-      menu
-      break
+      return_menu
       ;;
     q)
       echo -e "${R}[-] Quitting...${N}"
@@ -1588,4 +1703,83 @@ choose_help_menu() {
       ;;
     esac
   done
+}
+
+hidden_menu() {
+  rm -f $MODPATH/.branches.txt 2>&1
+  branches=($(curl https://api.github.com/repos/johnfawkes/fontchanger-scripts/branches | grep "name" | sed 's/name//' | sed 's/://' | sed 's/"//' | sed 's/"//' | sed 's/,//'))  choice=""
+  while [ "$choice" != "q" ]; do
+  clear
+  echo -e " "
+  pcenter "${B}Welcome to the Dark Side${N}"
+  echo -e " "
+  $test_connection || { echo -e "${G}Internet is Needed For This, Going Back to Main Menu\n${N}"; sleep 4 && menu; }
+  echo -e "${Y}Current branch:${N}"
+  echo -e " "
+  echo -e "${W}$branch${N}"
+  echo -e " "
+  echo -e "${B}Which Branch Would You like to Update to?${N}"
+  echo -e " "
+  c=1
+  for i in ${branches[@]}; do
+    echo -e "${W}[$c]${N} ${B}$i${N}" | grep $i | sed 's/"//' | sed 's/"//' && echo -e "[$c] $i" | grep $i | sed 's/"//' | sed 's/"//' >> $MODPATH/.branches.txt
+    echo -e " "
+    c=$((c+1))
+  done
+    echo -e "${W}[R] - Return to Main Menu${N}"
+    echo -e " "
+    echo -e "${R}[Q] - Quit${N}"
+    echo -e " "
+    echo -e "${B}[CHOOSE] : ${N}"
+    echo -e " "
+    read -r choice
+    branchchoice="$(grep -w $choice $MODPATH/.branches.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
+    case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
+      *)
+        if [ $choice = "q" ]; then
+          echo -e "${R}Quiting...${N}"
+          clear
+          quit
+        elif [ $choice = "r" ]; then
+          return_menu
+        elif [[ -n ${choice//[0-9]/} ]]; then
+          invalid
+        else
+          echo -e " Switched Branch to $branchchoice"
+          sed -i "s/^branch=.*/branch=$branchchoice/" $MODPATH/system/bin/font_changer
+          umount -l /system/bin/font_changer; mount -o bind $MODPATH/system/bin/font_changer /system/bin/font_changer;
+          break
+        fi
+      ;;
+    esac
+  done
+  return_menu
+}
+
+changelog_func() {
+  echo -e "Latest Changes"
+  NUM=$(grep -n "Changelog" $MODPATH/.changelog | sed -re "s|([[:digit:]]):.*|\1|")
+  tail -n +$NUM $MODPATH/.changelog | sed -n '/^$/q;p'
+  echo -e " "
+  echo -e "${W}[R] - Return to Main Menu${N}"
+  echo -e " "
+  echo -e "${R}[Q] - Quit${N}"
+  echo -e " "
+  echo -e "${B}[CHOOSE] : ${N}"
+  echo -e " "
+  read -r choice
+  case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
+    r)
+      echo -e "${B}[-] Return to Menu Selected...${N}"
+      return_menu
+      ;;
+    q)
+      echo -e "${R}[-] Quitting...${N}"
+      clear
+      quit
+      ;;
+    *)
+      invalid
+      ;;
+  esac
 }

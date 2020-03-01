@@ -1,0 +1,15 @@
+Changelog
+9 - 2.29.2020
+* Fix Zip Deletion
+* Add Samsung Support
+* Add Pixel Support
+* Add More Android 10/Q Support
+* Add Oxygen OS Support
+* Fix Custom Help Menu
+* Fix Custom Emojis
+* Updated Emojis ( Joypixels, Twemoji, iOS/Apple, Whatsapp, Blob, Samsung (S10) )
+* Add Joypixels-Alt Emoji
+* Add Compact Blob Emoji ( Update Lists to see new Emojis )
+* Add new changelog section
+* Updated check_updates function
+* Fix conflict font modules installed

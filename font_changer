@@ -4,7 +4,7 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
-scriptver=7
+scriptver=9
 branch=master
 
 get_file_value() {
@@ -390,10 +390,25 @@ mod_head() {
   echo -e ""
 }
 
-rm -f $MODPATH/tmp
-if test_connection; then
+if [ -f $MODPATH/.updated ]; then
+  echo -e "${G}Fontchanger succesfully updated!${N}"
+  oldver="$(cat $MODPATH/.updated)" newver="$scriptver"
+  oldline=$(sed -n "/^$oldver/=" $MODPATH/.changelog) newline=$(sed -n "/^$newver/=" $MODPATH/.changelog)
+  echo "Changelog: $(sed -n "/^$newver/p" $MODPATH/.changelog)"
+  sed -n "$newline,$oldline p" $MODPATH/.changelog | sed -E '/^[0-9]|^$/d'
+  echo " "
+  sleep 2
+  echo -e "${B}Please Press enter to continue ${N}"
+  read -r enter
+  case $enter in
+    *) :
+    ;;
+  esac
+fi
+
+if $test_connection; then
   check_updates & e_spinner
-  [ -f $MODPATH/tmp ] && { echo -e "${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo -e "${B} - Fontchanger is up to date${N}"
+  [ -f $MODPATH/.updated ] && { echo -e "\n${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo -e "${B} - Fontchanger is up to date${N}"
 else
   echo -e "${R} - No internet connection!${N}"
 fi
@@ -466,6 +481,8 @@ menu() {
     echo -e " "
     echo -e "${W}[6]${N} ${G} - Delete Downloaded Zips to Clear Space${N}"
     echo -e " "
+    echo -e "${W}[7]${N} ${G} - See Latest Changelog${N}"
+    echo -e " "
     echo -e "${R}[Q] - Quit${N}"
     echo -e " "
     echo -e "${B}[CHOOSE] : ${N}"
@@ -503,6 +520,13 @@ menu() {
         echo -e "${G}[-] Clear Downloaded Zips Selected...${N}"
         clear_menu
         break
+      ;;
+      7)
+        echo -e "${B}[-] Changelog Selected...${N}"
+        changelog_func
+      ;;
+      9999)
+        hidden_menu
       ;;
       q)
         echo -e "${R}[-] Quiting...${N}"
@@ -577,6 +601,10 @@ apply_font_shortcut() {
     fi
   done
   lg_device
+  pixel
+  samsung_device
+  oxygen
+  android10
   if [ -d $FCDIR/Fonts/$choice2 ]; then
     rm -rf $FCDIR/Fonts/$choice2
   fi
@@ -672,6 +700,10 @@ apply_custom_font_shortcut() {
     fi
   done
   lg_device
+  pixel
+  samsung_device
+  oxygen
+  android10
   if [ -d $MIRROR/product/fonts ]; then
     set_perm_recursive $MODPATH/product/fonts 0 0 0755 0644
   fi
@@ -754,6 +786,10 @@ random_shortcut() {
     fi
   done
   lg_device
+  pixel
+  samsung_device
+  oxygen
+  android10
   if [ -d $FCDIR/Fonts/$choice2 ]; then
     rm -rf $FCDIR/Fonts/$choice2
   fi
