@@ -1294,107 +1294,6 @@ update_lists() {
 #######################################################################################################
 #                                        Delete Downloaded Zips                                       #
 #######################################################################################################
-font_clear() {
-  choice=""
-  while [ "$choice" != "q" ]; do
-    echo " "
-    echo -e "${G}Would You Like to Delete the Downloaded Font Zips?${N}"
-    echo -e " "
-    echo -e "${B}[-] Select an Option...${N}"
-    echo -e " "
-    echo -e "${W}[Y]${N} ${G} - Yes${N}"
-    echo -e " "
-    echo -e "${W}[N]${N} ${G} - No${N}"
-    echo -e " "
-    echo -e "${W}[R]${N} ${G} - Return to Menu${N}"
-    echo -e " "
-    echo -e "${R}[Q] - Quit${N}"
-    echo -e " "
-    echo -e "${B}[CHOOSE] : ${N}"
-    echo -e " "
-    read -r choice
-    case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
-      y)
-        echo -e "${Y}[-] Deleting Font Zips${N}"
-        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
-        for i in $FCDIR/Fonts/*.zip; do
-          rm -f $i
-          for j in $FCDIR/Fonts/*/*.zip; do
-            rm -rf $j
-          done
-        done
-        break
-      ;;
-      n)
-        echo -e "${R}[-] Not Removing Fonts${N}"
-      ;;
-      q)
-        echo -e "${R}[-] Quiting...${N}"
-        clear
-        quit
-      ;;
-      r)
-        echo -e "${G}[-] Return to Menu Selected...${N}"
-        return_menu
-      ;;
-      *)
-        invaild
-        $SLEEP 1.5
-      ;;
-    esac
-  done
-}
-
-emoji_clear() {
-  choice=""
-  while [ "$choice" != "q" ]; do
-    echo " "
-    echo -e "${G}[-] Would You Like to Delete the Downloaded Emoji Zips to Save Space?${N}"
-    echo -e " "
-    echo -e "${B}[-] Select an Option...${N}"
-    echo -e " "
-    echo -e "${W}[Y]${N} ${G} - Yes${N}"
-    echo -e " "
-    echo -e "${W}[N]${N} ${G} - No${N}"
-    echo -e " "
-    echo -e "${W}[R]${N} ${G} - Return to Menu${N}"
-    echo -e " "
-    echo -e "${R}[Q] - Quit${N}"
-    echo -e " "
-    echo -e "${B}[CHOOSE] : ${N}"
-    echo -e " "
-    read -r choice
-    case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
-      y)
-        echo -e "${Y}[-] Deleting Emoji Zips${N}"
-        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
-        for i in $FCDIR/Emojis/*.zip; do
-          rm -f $i
-        done
-        for i in $FCDIR/Emojis/*/*.zip; do
-          rm -rf $i
-        done
-      ;;
-      n)
-        echo -e "${R}[-] Not Removing Emojis${N}"
-      ;;
-      q)
-        echo -e "${R}[-] Quiting...${N}"
-        clear
-        quit
-      ;;
-      r)
-        echo -e "${G}[-] Return to Menu Selected...${N}"
-        return_menu
-      ;;
-      *)
-        invaild
-        $SLEEP 1.5
-      ;;
-    esac
-  done
-}
-
 clear_font_menu() {
   choice=""
   while [ "$choice" != "q" ]; do
@@ -1421,23 +1320,30 @@ clear_font_menu() {
       read -r choice
       case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
         y)
-          echo -e "${G}[-] Deleting Font Zips...${N}"
-          font_clear
+          echo -e "${Y}[-] Deleting Font Zips${N}"
+        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
+          for i in $FCDIR/Fonts/*.zip; do
+            rm -f $i
+          done
+          break
         ;;
         n)
-          echo -e "${R}[-] Not Removing Font Zips${N}"
-        ;;
-        r)
-          echo -e "${B}[-] Return to Menu Selected...${N}"
-          return_menu
+          echo -e "${R}[-] Not Removing Fonts${N}"
+          break
         ;;
         q)
-          echo -e "${R}[-] Quitting...${N}"
+          echo -e "${R}[-] Quiting...${N}"
           clear
           quit
         ;;
+        r)
+          echo -e "${G}[-] Return to Menu Selected...${N}"
+          return_menu
+          break
+        ;;
         *)
-          invalid
+          invaild
+          $SLEEP 1.5
         ;;
       esac
     else
@@ -1446,7 +1352,6 @@ clear_font_menu() {
   done
   return_menu
 }
-
 clear_emoji_menu() {
   choice=""
   CHECKEMOJI=$(du -hs $FCDIR/Emojis/*.zip | cut -c-4)
@@ -1473,23 +1378,30 @@ clear_emoji_menu() {
       read -r choice
       case $(echo -e $choice | tr '[:upper:]' '[:lower:]') in
         y)
-          echo -e "${G}[-] Deleting Emoji Zips...${N}"
-          emoji_clear
+          echo -e "${Y}[-] Deleting Emoji Zips${N}"
+        #            find $FCDIR/Fonts -depth -mindepth 1 -maxdepth 1 -type d ! -regex '^$FCDIR/Fonts/Custom\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/User\(/.*\)?' -type d ! -regex '^$FCDIR/Fonts/avfonts\(/.*\)?' -delete
+          for i in $FCDIR/Emojis/*.zip; do
+            rm -f $i
+          done
+          break
         ;;
         n)
-          echo -e "${R}[-] Not Removing Emoji Zips${N}"
-        ;;
-        r)
-          echo -e "${B}[-] Return to Menu Selected...${N}"
-          return_menu
+          echo -e "${R}[-] Not Removing Emojis${N}"
+          break
         ;;
         q)
-          echo -e "${R}[-] Quitting...${N}"
+          echo -e "${R}[-] Quiting...${N}"
           clear
           quit
         ;;
+        r)
+          echo -e "${G}[-] Return to Menu Selected...${N}"
+          return_menu
+          break
+        ;;
         *)
-          invalid
+          invaild
+          $SLEEP 1.5
         ;;
       esac
     else
@@ -1522,14 +1434,17 @@ clear_menu() {
       1)
         echo -e "${G}[-] Emojis Zips...${N}"
         clear_emoji_menu
+        break
       ;;
       2)
         echo -e "${R}[-] Fonts Zips${N}"
         clear_font_menu
+        break
       ;;
       r)
         echo -e "${B}[-] Return to Menu Selected...${N}"
         return_menu
+        break
       ;;
       q)
         echo -e "${R}[-] Quitting...${N}"
