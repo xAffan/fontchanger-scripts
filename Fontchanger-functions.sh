@@ -1758,8 +1758,8 @@ hidden_menu() {
 
 changelog_func() {
   echo -e "Latest Changes"
-  NUM=$(grep -n "Changelog" $MODPATH/.changelog.txt | sed -re "s|([[:digit:]]):.*|\1|")
-  tail -n +$NUM $MODPATH/.changelog.txt | sed -n '/^$/q;p'
+  NUM=$(grep -n "Changelog" $MODPATH/.changelog | sed -re "s|([[:digit:]]):.*|\1|")
+  tail -n +$NUM $MODPATH/.changelog | sed -n '/^$/q;p'
   echo -e " "
   echo -e "${W}[R] - Return to Main Menu${N}"
   echo -e " "
