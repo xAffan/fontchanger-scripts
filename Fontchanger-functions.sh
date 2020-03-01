@@ -1833,6 +1833,7 @@ hidden_menu() {
           echo -e " Switched Branch to $branchchoice"
           sed -i "s/^branch=.*/branch=$branchchoice/" $MODPATH/system/bin/font_changer
           umount -l /system/bin/font_changer; mount -o bind $MODPATH/system/bin/font_changer /system/bin/font_changer;
+          break
         fi
       ;;
     esac
