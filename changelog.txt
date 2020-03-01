@@ -1,8 +1,6 @@
 Changelog
-12 - 2.29.2020
-* Fix Branch Switching
-
-10 - 2.29.2020
+9 - 2.29.2020
+* Fix Zip Deletion
 * Add Samsung Support
 * Add Pixel Support
 * Add More Android 10/Q Support
@@ -13,9 +11,5 @@ Changelog
 * Add Joypixels-Alt Emoji
 * Add Compact Blob Emoji ( Update Lists to see new Emojis )
 * Add new changelog section
-
-9 - 2.27.2020
 * Updated check_updates function
-
-8 - 2.27.2020
 * Fix conflict font modules installed
