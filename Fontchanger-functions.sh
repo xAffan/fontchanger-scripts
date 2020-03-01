@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=9
+MODUTILVCODE=10
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -160,7 +160,8 @@ if [ $device = "lge" ]; then
     cp -f $MODPATH/system/fonts/Roboto-Light.ttf $MODPATH/system/fonts/LG_SlimNumber-Light.ttf
     cp -f $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/LG_SlimNumber-Regular.ttf
     cp -f $MODPATH/system/fonts/Roboto-Thin.ttf $MODPATH/system/fonts/LG_SlimNumber-Thin.ttf
-  elif [ -d $MODPATH/system/product/fonts ]; then
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
     cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/LG_Number_Roboto_Bold_New.ttf
     cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/LG_Number_Roboto_Bold.ttf
     cp -f $MODPATH/system/product/fonts/Roboto-Light.ttf $MODPATH/system/product/fonts/LG_Number_Roboto_Light.ttf
@@ -170,7 +171,8 @@ if [ $device = "lge" ]; then
     cp -f $MODPATH/system/fonts/Roboto-Light.ttf $MODPATH/system/fonts/LG_SlimNumber-Light.ttf
     cp -f $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/LG_SlimNumber-Regular.ttf
     cp -f $MODPATH/system/fonts/Roboto-Thin.ttf $MODPATH/system/fonts/LG_SlimNumber-Thin.ttf
-  elif [ -d $MODPATH/product/fonts ]; then
+  fi
+  if [ -d $MODPATH/product/fonts ]; then
     cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/LG_Number_Roboto_Bold_New.ttf
     cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/LG_Number_Roboto_Bold.ttf
     cp -f $MODPATH/product/fonts/Roboto-Light.ttf $MODPATH/product/fonts/LG_Number_Roboto_Light.ttf
@@ -185,55 +187,65 @@ fi
 }
 
 pixel() {
-if [ -f $MIRROR/system/fonts/GoogleSans-Regular.ttf ]; then
-	cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/GoogleSans-Regular.ttf
-	cp $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/GoogleSans-Italic.ttf
-	cp $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/GoogleSans-Medium.ttf
-	cp $MODPATH/system/fonts/Roboto-MediumItalic.ttf $MODPATH/system/fonts/GoogleSans-MediumItalic.ttf
-	cp $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/GoogleSans-Bold.ttf
-	cp $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/GoogleSans-BoldItalic.ttf
-elif [ -f $MIRROR/system/product/fonts/GoogleSans-Regular.ttf ]; then
-	cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/GoogleSans-Regular.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/GoogleSans-Italic.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/GoogleSans-Medium.ttf
-	cp $MODPATH/system/product/fonts/Roboto-MediumItalic.ttf $MODPATH/system/product/fonts/GoogleSans-MediumItalic.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/GoogleSans-Bold.ttf
-	cp $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/GoogleSans-BoldItalic.ttf
-elif [ -f $MIRROR/product/fonts/GoogleSans-Regular.ttf ]; then
-	cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/GoogleSans-Regular.ttf
-	cp $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/GoogleSans-Italic.ttf
-	cp $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/GoogleSans-Medium.ttf
-	cp $MODPATH/product/fonts/Roboto-MediumItalic.ttf $MODPATH/product/fonts/GoogleSans-MediumItalic.ttf
-	cp $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/GoogleSans-Bold.ttf
-	cp $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/GoogleSans-BoldItalic.ttf
+device=$(getprop ro.product.brand)
+if [ $device = google ]; then
+  if [ -f $MIRROR/system/fonts/GoogleSans-Regular.ttf ]; then
+	  cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/GoogleSans-Regular.ttf
+	  cp $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/GoogleSans-Italic.ttf
+	  cp $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/GoogleSans-Medium.ttf
+	  cp $MODPATH/system/fonts/Roboto-MediumItalic.ttf $MODPATH/system/fonts/GoogleSans-MediumItalic.ttf
+	  cp $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/GoogleSans-Bold.ttf
+	  cp $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/GoogleSans-BoldItalic.ttf
+  fi
+  if [ -f $MIRROR/system/product/fonts/GoogleSans-Regular.ttf ]; then
+	  cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/GoogleSans-Regular.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/GoogleSans-Italic.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/GoogleSans-Medium.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-MediumItalic.ttf $MODPATH/system/product/fonts/GoogleSans-MediumItalic.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/GoogleSans-Bold.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/GoogleSans-BoldItalic.ttf
+  fi
+  if [ -f $MIRROR/product/fonts/GoogleSans-Regular.ttf ]; then
+	  cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/GoogleSans-Regular.ttf
+	  cp $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/GoogleSans-Italic.ttf
+	  cp $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/GoogleSans-Medium.ttf
+	  cp $MODPATH/product/fonts/Roboto-MediumItalic.ttf $MODPATH/product/fonts/GoogleSans-MediumItalic.ttf
+	  cp $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/GoogleSans-Bold.ttf
+	  cp $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/GoogleSans-BoldItalic.ttf
+  fi
 fi
 }
 
 oxygen() {
-if [ -f $MIRROR/system/fonts/SlateForOnePlus-Regular.ttf ]; then
-	cp $MODPATH/system/fonts/Roboto-Black.ttf $MODPATH/system/fonts/SlateForOnePlus-Black.ttf
-	cp $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SlateForOnePlus-Bold.ttf
-	cp $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/SlateForOnePlus-Medium.ttf
-	cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SlateForOnePlus-Regular.ttf
-	cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SlateForOnePlus-Book.ttf
-	cp $MODPATH/system/fonts/Roboto-Light.ttf $MODPATH/system/fonts/SlateForOnePlus-Light.ttf
-	cp $MODPATH/system/fonts/Roboto-Thin.ttf $MODPATH/system/fonts/SlateForOnePlus-Thin.ttf
-elif [ -f $MIRROR/system/product/fonts/SlateForOnePlus-Regular.ttf ]; then
-	cp $MODPATH/system/product/fonts/Roboto-Black.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Black.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Bold.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Medium.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Regular.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Book.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Light.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Light.ttf
-	cp $MODPATH/system/product/fonts/Roboto-Thin.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Thin.ttf
-elif [ -f $MIRROR/product/fonts/GoogleSans-Regular.ttf ]; then
-	cp $MODPATH/product/fonts/Roboto-Black.ttf $MODPATH/product/fonts/SlateForOnePlus-Black.ttf
-	cp $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SlateForOnePlus-Bold.ttf
-	cp $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/SlateForOnePlus-Medium.ttf
-	cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SlateForOnePlus-Regular.ttf
-	cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SlateForOnePlus-Book.ttf
-	cp $MODPATH/product/fonts/Roboto-Light.ttf $MODPATH/product/fonts/SlateForOnePlus-Light.ttf
-	cp $MODPATH/product/fonts/Roboto-Thin.ttf $MODPATH/product/fonts/SlateForOnePlus-Thin.ttf
+device=$(getprop ro.build.version.ota 2>/dev/null)
+if [[ $device = *Oxygen* ]]; then
+  if [ -f $MIRROR/system/fonts/SlateForOnePlus-Regular.ttf ]; then
+	  cp $MODPATH/system/fonts/Roboto-Black.ttf $MODPATH/system/fonts/SlateForOnePlus-Black.ttf
+	  cp $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SlateForOnePlus-Bold.ttf
+	  cp $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/SlateForOnePlus-Medium.ttf
+	  cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SlateForOnePlus-Regular.ttf
+	  cp $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SlateForOnePlus-Book.ttf
+	  cp $MODPATH/system/fonts/Roboto-Light.ttf $MODPATH/system/fonts/SlateForOnePlus-Light.ttf
+	  cp $MODPATH/system/fonts/Roboto-Thin.ttf $MODPATH/system/fonts/SlateForOnePlus-Thin.ttf
+  fi
+  if [ -f $MIRROR/system/product/fonts/SlateForOnePlus-Regular.ttf ]; then
+	  cp $MODPATH/system/product/fonts/Roboto-Black.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Black.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Bold.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Medium.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Regular.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Book.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Light.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Light.ttf
+	  cp $MODPATH/system/product/fonts/Roboto-Thin.ttf $MODPATH/system/product/fonts/SlateForOnePlus-Thin.ttf
+  fi
+  if [ -f $MIRROR/product/fonts/GoogleSans-Regular.ttf ]; then
+	  cp $MODPATH/product/fonts/Roboto-Black.ttf $MODPATH/product/fonts/SlateForOnePlus-Black.ttf
+	  cp $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SlateForOnePlus-Bold.ttf
+	  cp $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/SlateForOnePlus-Medium.ttf
+	  cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SlateForOnePlus-Regular.ttf
+	  cp $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SlateForOnePlus-Book.ttf
+	  cp $MODPATH/product/fonts/Roboto-Light.ttf $MODPATH/product/fonts/SlateForOnePlus-Light.ttf
+	  cp $MODPATH/product/fonts/Roboto-Thin.ttf $MODPATH/product/fonts/SlateForOnePlus-Thin.ttf
+  fi
 fi
 }
 
@@ -254,7 +266,8 @@ if [ $device = "samsung" ]; then
     cp -f $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SECRobotoLight-Regular.ttf
     cp -f $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SECRobotoLight-Bold.ttf
     cp -f $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SECRobotoCondensed-Bold.ttf
-  elif [ -d $MODPATH/system/product/fonts ]; then
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
     cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/RobotoNum-3L.ttf
     cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/RobotoNum-3R.ttf
     cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SamsungSans-Bold.ttf
@@ -268,7 +281,8 @@ if [ $device = "samsung" ]; then
     cp -f $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SECRobotoLight-Regular.ttf
     cp -f $MODPATH/system/psroduct/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SECRobotoLight-Bold.ttf
     cp -f $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SECRobotoCondensed-Bold.ttf
-  elif [ -d $MODPATH/product/fonts ]; then
+  fi
+  if [ -d $MODPATH/product/fonts ]; then
     cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/RobotoNum-3L.ttf
     cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/RobotoNum-3R.ttf
     cp -f $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SamsungSans-Bold.ttf
@@ -288,38 +302,42 @@ fi
 
 android10() {
 if [ "$API" -ge 29 ]; then
-	cp -rf $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/NotoSerif-Regular.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/NotoSerif-Bold.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/NotoSerif-Italic.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/NotoSerif-BoldItalic.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SourceSansPro-Regular.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SourceSansPro-Bold.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/SourceSansPro-BoldItalic.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/SourceSansPro-Italic.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/SourceSansPro-SemiBold.ttf
-	cp -rf $MODPATH/system/fonts/Roboto-MediumItalic.ttf $MODPATH/system/fonts/SourceSansPro-SemiBoldItalic.ttf
-elif [ -d $MODPATH/system/product/fonts ]; then
-	cp -rf $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/NotoSerif-Regular.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/NotoSerif-Bold.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/NotoSerif-Italic.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/NotoSerif-BoldItalic.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SourceSansPro-Regular.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SourceSansPro-Bold.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/SourceSansPro-BoldItalic.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/SourceSansPro-Italic.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/SourceSansPro-SemiBold.ttf
-	cp -rf $MODPATH/system/product/fonts/Roboto-MediumItalic.ttf $MODPATH/system/product/fonts/SourceSansPro-SemiBoldItalic.ttf
-elif [ -d $MODPATH/product/fonts ]; then
-	cp -rf $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/NotoSerif-Regular.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/NotoSerif-Bold.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/NotoSerif-Italic.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/NotoSerif-BoldItalic.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SourceSansPro-Regular.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SourceSansPro-Bold.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/SourceSansPro-BoldItalic.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/SourceSansPro-Italic.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/SourceSansPro-SemiBold.ttf
-	cp -rf $MODPATH/product/fonts/Roboto-MediumItalic.ttf $MODPATH/product/fonts/SourceSansPro-SemiBoldItalic.ttf
+  if [ -d $MODPATH/system/product/fonts ]; then
+	  cp -rf $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/NotoSerif-Regular.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/NotoSerif-Bold.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/NotoSerif-Italic.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/NotoSerif-BoldItalic.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-Regular.ttf $MODPATH/system/fonts/SourceSansPro-Regular.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-Bold.ttf $MODPATH/system/fonts/SourceSansPro-Bold.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-BoldItalic.ttf $MODPATH/system/fonts/SourceSansPro-BoldItalic.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-Italic.ttf $MODPATH/system/fonts/SourceSansPro-Italic.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-Medium.ttf $MODPATH/system/fonts/SourceSansPro-SemiBold.ttf
+	  cp -rf $MODPATH/system/fonts/Roboto-MediumItalic.ttf $MODPATH/system/fonts/SourceSansPro-SemiBoldItalic.ttf
+  fi
+  if [ -d $MODPATH/system/product/fonts ]; then
+	  cp -rf $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/NotoSerif-Regular.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/NotoSerif-Bold.ttf
+	  cp   -rf $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/NotoSerif-Italic.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/NotoSerif-BoldItalic.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-Regular.ttf $MODPATH/system/product/fonts/SourceSansPro-Regular.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-Bold.ttf $MODPATH/system/product/fonts/SourceSansPro-Bold.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-BoldItalic.ttf $MODPATH/system/product/fonts/SourceSansPro-BoldItalic.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-Italic.ttf $MODPATH/system/product/fonts/SourceSansPro-Italic.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-Medium.ttf $MODPATH/system/product/fonts/SourceSansPro-SemiBold.ttf
+	  cp -rf $MODPATH/system/product/fonts/Roboto-MediumItalic.ttf $MODPATH/system/product/fonts/SourceSansPro-SemiBoldItalic.ttf
+  fi
+  if [ -d $MODPATH/product/fonts ]; then
+	  cp -rf $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/NotoSerif-Regular.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/NotoSerif-Bold.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/NotoSerif-Italic.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/NotoSerif-BoldItalic.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-Regular.ttf $MODPATH/product/fonts/SourceSansPro-Regular.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-Bold.ttf $MODPATH/product/fonts/SourceSansPro-Bold.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-BoldItalic.ttf $MODPATH/product/fonts/SourceSansPro-BoldItalic.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-Italic.ttf $MODPATH/product/fonts/SourceSansPro-Italic.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-Medium.ttf $MODPATH/product/fonts/SourceSansPro-SemiBold.ttf
+	  cp -rf $MODPATH/product/fonts/Roboto-MediumItalic.ttf $MODPATH/product/fonts/SourceSansPro-SemiBoldItalic.ttf
+  fi
 fi
 }
 #######################################################################################################
