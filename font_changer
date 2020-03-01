@@ -4,7 +4,7 @@
 # Modified by @JohnFawkes - Telegram/XDA
 # Help from @Zackptg5 - Telegram/XDA
 # Variables
-scriptver=10
+scriptver=11
 branch=master
 
 get_file_value() {
@@ -408,7 +408,7 @@ fi
 
 if $test_connection; then
   check_updates & e_spinner
-  [ -f $MODPATH/.updated ] && { echo -e "${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo -e "${B} - Fontchanger is up to date${N}"
+  [ -f $MODPATH/.updated ] && { echo -e "\n${G} - Applying mod updates and restarting${N}"; font_changer && quit; } || echo -e "${B} - Fontchanger is up to date${N}"
 else
   echo -e "${R} - No internet connection!${N}"
 fi

@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=10
+MODUTILVCODE=11
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -1839,10 +1839,9 @@ hidden_menu() {
 }
 
 changelog_func() {
-  oldver="$(cat $MODPATH/.updated)" newver="$scriptver"
-  oldline=$(sed -n "/^$oldver/=" $MODPATH/.changelog) newline=$(sed -n "/^$newver/=" $MODPATH/.changelog)
-  echo "Changelog: $(sed -n "/^$newver/p" $MODPATH/.changelog)"
-  sed -n "$newline,$oldline p" $MODPATH/.changelog | sed -E '/^[0-9]|^$/d'
+  echo -e "Latest Changes"
+  NUM=$(grep -n "Changelog" $MODPATH/.changelog.txt | sed -re "s|([[:digit:]]):.*|\1|")
+  tail -n +$NUM $MODPATH/.changelog.txt | sed -n '/^$/q;p'
   echo -e " "
   echo -e "${W}[R] - Return to Main Menu${N}"
   echo -e " "
