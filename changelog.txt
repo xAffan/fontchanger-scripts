@@ -1,4 +1,7 @@
 Changelog
+12 - 2.29.2020
+* Fix Branch Switching
+
 10 - 2.29.2020
 * Add Samsung Support
 * Add Pixel Support

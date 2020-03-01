@@ -2,7 +2,7 @@
 #######################################################################################################
 #                                              Leave Menu                                             #
 #######################################################################################################
-MODUTILVCODE=11
+MODUTILVCODE=12
 # Variables:
 #  BBok - If busybox detection was ok (true/false)
 #  _bb - Busybox binary directory
@@ -1791,8 +1791,8 @@ choose_help_menu() {
 }
 
 hidden_menu() {
-  branches=($(curl https://api.github.com/repos/johnfawkes/fontchanger-scripts/branches | grep "name" | sed 's/name//' | sed 's/://' | sed 's/"//' | sed 's/"//' | sed 's/,//'))
-  choice=""
+  rm -f $MODPATH/.branches.txt 2>&1
+  branches=($(curl https://api.github.com/repos/johnfawkes/fontchanger-scripts/branches | grep "name" | sed 's/name//' | sed 's/://' | sed 's/"//' | sed 's/"//' | sed 's/,//'))  choice=""
   while [ "$choice" != "q" ]; do
   clear
   echo -e " "
@@ -1807,7 +1807,7 @@ hidden_menu() {
   echo -e " "
   c=1
   for i in ${branches[@]}; do
-    echo -e "${W}[$c]${N} ${B}$i${N}" | grep $i | sed 's/"//' | sed 's/"//' && echo -e "[$c] $i" >> $MODPATH/.branches.txt
+    echo -e "${W}[$c]${N} ${B}$i${N}" | grep $i | sed 's/"//' | sed 's/"//' && echo -e "[$c] $i" | grep $i | sed 's/"//' | sed 's/"//' >> $MODPATH/.branches.txt
     echo -e " "
     c=$((c+1))
   done
@@ -1831,11 +1831,13 @@ hidden_menu() {
           invalid
         else
           echo -e " Switched Branch to $branchchoice"
-          sed -i "s/^branch=.*/branch=$branchchoice/" $MODPATH/system/bin/font_changer 
+          sed -i "s/^branch=.*/branch=$branchchoice/" $MODPATH/system/bin/font_changer
+          umount -l /system/bin/font_changer; mount -o bind $MODPATH/system/bin/font_changer /system/bin/font_changer;
         fi
       ;;
     esac
   done
+  return_menu
 }
 
 changelog_func() {
