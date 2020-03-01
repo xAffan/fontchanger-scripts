@@ -1830,16 +1830,10 @@ hidden_menu() {
         elif [[ -n ${choice//[0-9]/} ]]; then
           invalid
         else
-          echo "Applying mod updates and restarting"
-          echo "$scriptver" > $MODPATH/.updated
-          wget -qO $MODPATH/.changelog https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branchchoice/changelog.txt 2>/dev/null
-          wget -qO $MODPATH/system/bin/font_changer https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branchchoice/font_changer 2>/dev/null
-          wget -qO $MODPATH/Fontchanger-functions.sh https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branchchoice/Fontchnager-functions.sh 2>/dev/null
-          umount -l /system/bin/font_changer
-          mount -o bind $MODPATH/system/bin/font_changer /system/bin/font_changer
-          font_changer && quit
+          echo -e " Switched Branch to $branchchoice"
+          sed -i "s/^branch=.*/branch=$branchchoice/" $MODPATH/system/bin/font_changer 
         fi
-        ;;
+      ;;
     esac
   done
 }
