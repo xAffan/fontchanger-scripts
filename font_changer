@@ -333,33 +333,6 @@ test_connection2() {
 
 # Log files will be uploaded to termbin.com
 # Logs included: VERLOG LOG oldVERLOG oldLOG
-upload_logs() {
-  $BBox && {
-  test_connection
-  [[ "$CON1" == "true" ]] || test_connection2
-  [[ "$CON2" == "true" ]] || abort " [!] Internet Connection is Needed... [!]"
-  if "$CON1" || "$CON2"; then
-    echo -e "Uploading logs"
-    [ -s $VERLOG ] && verUp=$(cat $VERLOG | nc termbin.com 9999) || verUp=none
-    [ -s $oldVERLOG ] && oldverUp=$(cat $oldVERLOG | nc termbin.com 9999) || oldverUp=none
-    [ -s $LOG ] && logUp=$(cat $LOG | nc termbin.com 9999) || logUp=none
-    [ -s $oldLOG ] && oldlogUp=$(cat $oldLOG | nc termbin.com 9999) || oldlogUp=none
-    [ -s $stdoutLOG ] && stdoutUp=$(cat $stdoutLOG | nc termbin.com 9999) || stdoutUp=none
-    [ -s $oldstdoutLOG ] && oldstdoutUp=$(cat $oldstdoutLOG | nc termbin.com 9999) || oldstdoutUp=none
-    [ -s $XZLOG ] && XZLOGUp=$(cat $XZLOG | nc termbin.com 9999) || XZLOGUp=none
-    echo -e "Link: "
-    echo -e "$MODEL ($DEVICE) API $API\n$ROM\n$ID\n
-    O_Verbose: $oldverUp
-    Verbose:   $verUp
-    O_Log: $oldlogUp
-    Log:   $logUp
-    O_STDOUT:  $oldstdoutUp
-    STDOUT:    $stdoutUp
-    Zip: $XZLOGUp" | nc termbin.com 9999
-    fi
-  } || echo "Busybox not found!"
-  exit
-}
 
 # Print Center
 # Prints text in the center of terminal
