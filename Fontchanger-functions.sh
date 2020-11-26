@@ -62,12 +62,12 @@ fi
 check_updates() {
   echo -e "\n${B}Checking for mod updates${N}"
   rm -f $MODPATH/.updated 2>&1
-  wget -qO $MODPATH/.changelog https://raw.githubusercontent.com/johnfawkes/fontchanger-scripts/$branch/changelog.txt 2>/dev/null
+  wget -qO $MODPATH/.changelog https://raw.githubusercontent.com/xaffan/fontchanger-scripts/$branch/changelog.txt 2>/dev/null
   for i in Fontchanger-functions.sh,MODUTILVCODE system/bin/font_changer,scriptver; do
     local file="$(echo $i | cut -d , -f1)" value="$(echo $i | cut -d , -f2)"
-    if [ `wget -qO - https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ]; then
+    if [ `wget -qO - https://raw.githubusercontent.com/xaffan/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2` -gt `grep "^$value=" $MODPATH/$file | cut -d = -f2` ]; then
       echo "$scriptver" > $MODPATH/.updated
-      wget -qO $MODPATH/$file https://raw.githubusercontent.com/JohnFawkes/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null
+      wget -qO $MODPATH/$file https://raw.githubusercontent.com/xaffan/fontchanger-scripts/$branch/$(basename $file) 2>/dev/null
       [ "$file" == "system/bin/font_changer" ] && { umount -l /$file; mount -o bind $MODPATH/$file /$file; }
     fi
   done
@@ -588,7 +588,7 @@ apply_emoji() {
   rm -f $MODPATH/product/fonts/*Emoji*.ttf
   rm -f $MODPATH/system/product/fonts/*Emoji*.ttf
   rm -f $MODPATH/system/fonts/*Emoji*.ttf
-  [ -e $FCDIR/Emojis/$emojichoice.zip ] || $CURL -k -o "$FCDIR/Emojis/$emojichoice.zip" https://john-fawkes.com/Downloads/emoji/$emojichoice.zip
+  [ -e $FCDIR/Emojis/$emojichoice.zip ] || $CURL -k -o "$FCDIR/Emojis/$emojichoice.zip" https://john-fawkes.com/Downloads/hahaemoji/$emojichoice.zip
   mkdir -p $FCDIR/Emojis/$emojichoice
   unzip -o "$FCDIR/Emojis/$emojichoice.zip" -d $FCDIR/Emojis/$emojichoice
   if [ -d $MIRROR/product/fonts ]; then
@@ -996,7 +996,7 @@ apply_font() {
   if [ -d $MODPATH/system/product/fonts ]; then
     rm -rf $MODPATH/system/product/fonts
   fi
-  [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/$choice2.zip
+  [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
   unzip -o "$FCDIR/Fonts/$choice2.zip" -d $FCDIR/Fonts/$choice2
   if [ -d $MIRROR/product/fonts ]; then
@@ -1255,8 +1255,8 @@ default_menu() {
 #                                        Update Emoji/Font Lists                                      #
 #######################################################################################################
 update_lists() {
-  currVer=$(wget https://john-fawkes.com/Downloads/fontlist/fonts-list.txt --output-document - | wc -l)
-  currVer2=$(wget https://john-fawkes.com/Downloads/emojilist/emojis-list.txt --output-document - | wc -l)
+  currVer=$(wget https://john-fawkes.com/Downloads/hahafontlist/fonts-list.txt --output-document - | wc -l)
+  currVer2=$(wget https://john-fawkes.com/Downloads/hahaemojilist/emojis-list.txt --output-document - | wc -l)
   instVer=$(cat $FCDIR/fonts-list.txt | wc -l)
   instVer2=$(cat $FCDIR/emojis-list.txt | wc -l)
   echo -e "${B}Checking For Updates...${N}"
@@ -1272,7 +1272,7 @@ update_lists() {
     if "$CON1" || "$CON2" || "$CON3"; then
       rm $FCDIR/fonts-list.txt
       mkdir -p $FCDIR/Fonts/Custom
-      $CURL -k -o $FCDIR/fonts-list.txt https://john-fawkes.com/Downloads/fontlist/fonts-list.txt
+      $CURL -k -o $FCDIR/fonts-list.txt https://john-fawkes.com/Downloads/hahafontlist/fonts-list.txt
       if [ $instVer != $currVer ]; then
         echo -e "${B}[-] Fonts Lists Downloaded Successfully... [-]${N}"
       else
@@ -1296,7 +1296,7 @@ update_lists() {
     if "$CON1" || "$CON2" || "$CON3"; then
       rm $FCDIR/emojis-list.txt
       mkdir -p $FCDIR/Emojis/Custom
-      $CURL -k -o $FCDIR/emojis-list.txt https://john-fawkes.com/Downloads/emojilist/emojis-list.txt
+      $CURL -k -o $FCDIR/emojis-list.txt https://john-fawkes.com/Downloads/hahaemojilist/emojis-list.txt
       if [ $instVer2 != $currVer2 ]; then
         echo -e "${B}[-] Emoji Lists Downloaded Successfully... [-]${N}"
       else
@@ -1524,7 +1524,7 @@ random_menu() {
       if [ -d $MODPATH/system/product/fonts ]; then
         rm -rf $MODPATH/system/product/fonts
       fi
-      [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/$choice2.zip
+      [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha$choice2.zip
       mkdir -p $FCDIR/Fonts/$choice2
       unzip -o "$FCDIR/Fonts/$choice2.zip" -d $FCDIR/Fonts/$choice2
       if [ -d $MIRROR/product/fonts ]; then
@@ -1725,7 +1725,7 @@ choose_help_menu() {
 
 hidden_menu() {
   rm -f $MODPATH/.branches.txt 2>&1
-  branches=($(curl https://api.github.com/repos/johnfawkes/fontchanger-scripts/branches | grep "name" | sed 's/name//' | sed 's/://' | sed 's/"//' | sed 's/"//' | sed 's/,//'))  choice=""
+  branches=($(curl https://api.github.com/repos/xaffan/fontchanger-scripts/branches | grep "name" | sed 's/name//' | sed 's/://' | sed 's/"//' | sed 's/"//' | sed 's/,//'))  choice=""
   while [ "$choice" != "q" ]; do
   clear
   echo -e " "
