@@ -15,13 +15,8 @@
 
 <div align="center">
   <h3>
-    <a href="https://github.com/johnfawkes/fontchanger">
+    <a href="https://github.com/xaffan/fontchanger">
       Source Code
     </a>
   </h3>
 </div>
-
-## Donation
-- If you would like to donate to me you can do so by going to <a href="https://paypal.me/BBarber61">PayPal</a>
-
-- You can also donate monthly by visting <a href="https://github.com/sponsors/JohnFawkes">Github Sponsorship</a>
