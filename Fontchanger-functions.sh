@@ -588,7 +588,7 @@ apply_emoji() {
   rm -f $MODPATH/product/fonts/*Emoji*.ttf
   rm -f $MODPATH/system/product/fonts/*Emoji*.ttf
   rm -f $MODPATH/system/fonts/*Emoji*.ttf
-  [ -e $FCDIR/Emojis/$emojichoice.zip ] || $CURL -k -o "$FCDIR/Emojis/$emojichoice.zip" https://john-fawkes.com/Downloads/hahaemoji/$emojichoice.zip
+  [ -e $FCDIR/Emojis/$emojichoice.zip ] || $CURL -k -o "$FCDIR/Emojis/$emojichoice.zip" https://john-fawkes.com/Downloads/haha/emoji/$emojichoice.zip
   mkdir -p $FCDIR/Emojis/$emojichoice
   unzip -o "$FCDIR/Emojis/$emojichoice.zip" -d $FCDIR/Emojis/$emojichoice
   if [ -d $MIRROR/product/fonts ]; then
@@ -996,7 +996,7 @@ apply_font() {
   if [ -d $MODPATH/system/product/fonts ]; then
     rm -rf $MODPATH/system/product/fonts
   fi
-  [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha$choice2.zip
+  [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
   unzip -o "$FCDIR/Fonts/$choice2.zip" -d $FCDIR/Fonts/$choice2
   if [ -d $MIRROR/product/fonts ]; then
@@ -1255,8 +1255,8 @@ default_menu() {
 #                                        Update Emoji/Font Lists                                      #
 #######################################################################################################
 update_lists() {
-  currVer=$(wget https://john-fawkes.com/Downloads/hahafontlist/fonts-list.txt --output-document - | wc -l)
-  currVer2=$(wget https://john-fawkes.com/Downloads/hahaemojilist/emojis-list.txt --output-document - | wc -l)
+  currVer=$(wget https://john-fawkes.com/Downloads/haha/fontlist/fonts-list.txt --output-document - | wc -l)
+  currVer2=$(wget https://john-fawkes.com/Downloads/haha/emojilist/emojis-list.txt --output-document - | wc -l)
   instVer=$(cat $FCDIR/fonts-list.txt | wc -l)
   instVer2=$(cat $FCDIR/emojis-list.txt | wc -l)
   echo -e "${B}Checking For Updates...${N}"
@@ -1272,7 +1272,7 @@ update_lists() {
     if "$CON1" || "$CON2" || "$CON3"; then
       rm $FCDIR/fonts-list.txt
       mkdir -p $FCDIR/Fonts/Custom
-      $CURL -k -o $FCDIR/fonts-list.txt https://john-fawkes.com/Downloads/hahafontlist/fonts-list.txt
+      $CURL -k -o $FCDIR/fonts-list.txt https://john-fawkes.com/Downloads/haha/fontlist/fonts-list.txt
       if [ $instVer != $currVer ]; then
         echo -e "${B}[-] Fonts Lists Downloaded Successfully... [-]${N}"
       else
@@ -1296,7 +1296,7 @@ update_lists() {
     if "$CON1" || "$CON2" || "$CON3"; then
       rm $FCDIR/emojis-list.txt
       mkdir -p $FCDIR/Emojis/Custom
-      $CURL -k -o $FCDIR/emojis-list.txt https://john-fawkes.com/Downloads/hahaemojilist/emojis-list.txt
+      $CURL -k -o $FCDIR/emojis-list.txt https://john-fawkes.com/Downloads/haha/emojilist/emojis-list.txt
       if [ $instVer2 != $currVer2 ]; then
         echo -e "${B}[-] Emoji Lists Downloaded Successfully... [-]${N}"
       else
@@ -1524,7 +1524,7 @@ random_menu() {
       if [ -d $MODPATH/system/product/fonts ]; then
         rm -rf $MODPATH/system/product/fonts
       fi
-      [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha$choice2.zip
+      [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha/$choice2.zip
       mkdir -p $FCDIR/Fonts/$choice2
       unzip -o "$FCDIR/Fonts/$choice2.zip" -d $FCDIR/Fonts/$choice2
       if [ -d $MIRROR/product/fonts ]; then

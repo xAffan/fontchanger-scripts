@@ -572,7 +572,7 @@ apply_font_shortcut() {
   if [ -d $MODPATH/system/product/fonts ]; then
     rm -rf $MODPATH/system/product/fonts
   fi
-  [ -e $FCDIR/Fonts/$choice2.zip ] || curl -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha$choice2.zip
+  [ -e $FCDIR/Fonts/$choice2.zip ] || curl -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
   unzip -o "$FCDIR/Fonts/$choice2.zip" -d $FCDIR/Fonts/$choice2 >&2 
   if [ -d $MIRROR/product/fonts ]; then
@@ -763,7 +763,7 @@ random_shortcut() {
   if [ -d $MODPATH/system/product/fonts ]; then
     rm -rf $MODPATH/system/product/fonts
   fi
-  [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha$choice2.zip
+  [ -e $FCDIR/Fonts/$choice2.zip ] || $CURL -k -o "$FCDIR/Fonts/$choice2.zip" https://john-fawkes.com/Downloads/haha/$choice2.zip
   mkdir -p $FCDIR/Fonts/$choice2
   unzip -o "$FCDIR/Fonts/$choice2.zip" -d $FCDIR/Fonts/$choice2
   if [ -d $MIRROR/product/fonts ]; then
@@ -931,7 +931,7 @@ apply_emoji_shortcut() {
       fi
     done
   fi
-  [ -e $FCDIR/Emojis/$emojichoice.zip ] || $CURL -k -o "$FCDIR/Emojis/$emojichoice.zip" https://john-fawkes.com/Downloads/hahaemoji/$emojichoice.zip
+  [ -e $FCDIR/Emojis/$emojichoice.zip ] || $CURL -k -o "$FCDIR/Emojis/$emojichoice.zip" https://john-fawkes.com/Downloads/haha/emoji/$emojichoice.zip
   mkdir -p $FCDIR/Emojis/$emojichoice
   unzip -o "$FCDIR/Emojis/$emojichoice.zip" -d $FCDIR/Emojis/$emojichoice
   if [ -d $MIRROR/product/fonts ]; then
